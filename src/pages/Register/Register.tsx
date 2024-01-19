@@ -6,8 +6,29 @@ import BaseCard from '../../components/Card/BaseCard'
 import RegisterImage from '../../assets/images/register.jpeg'
 
 const Register = (): ReactElement => {
-    const handleSubmit = () => {
+    const [displayName, setDisplayName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState()
+    const [error, setError] = useState()
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        setError('')
+
+        const user = {
+            displayName,
+            email,
+            password
+        }
+
+        if (password !== confirmPassword) {
+            setError('Passwords do not match')
+            return
+        }
+
+        console.log(user)
     }
 
     return (
@@ -21,27 +42,56 @@ const Register = (): ReactElement => {
                 <form onSubmit={handleSubmit}>
                     <label>
                         <span>Name: </span>
-                        <input type="text" name="displayName" required placeholder="Type your name"/>
+                        <input
+                            value={displayName}
+                            type="text"
+                            name="displayName"
+                            required
+                            placeholder="Type your name"
+                            onChange={e => setDisplayName(e.target.value)}
+                        />
                     </label>
 
                     <label>
                         <span>Email: </span>
-                        <input type="email" name="displayEmail" required placeholder="Type your email"/>
+                        <input
+                            value={email}
+                            type="email"
+                            name="displayEmail"
+                            required
+                            placeholder="Type your email"
+                            onChange={e => setEmail(e.target.value)}
+                        />
                     </label>
 
                     <label>
                         <span>Password: </span>
-                        <input type="password" name="displayPassword" required placeholder="Type your password"/>
+                        <input
+                            value={password}
+                            type="password"
+                            name="displayPassword"
+                            required
+                            placeholder="Type your password"
+                            onChange={e => setPassword(e.target.value)}
+                        />
                     </label>
 
                     <label>
                         <span>Confirm Password: </span>
-                        <input type="password" name="confirmPassword" required placeholder="Confirm your password"/>
+                        <input
+                            value={confirmPassword}
+                            type="password"
+                            name="confirmPassword"
+                            required
+                            placeholder="Confirm your password"
+                            onChange={e => setConfirmPassword(e.target.value)}
+                        />
                     </label>
 
                     <button className="btn">Register</button>
                 </form>
             </main>
+            {error && <p className="error">{error}</p>}
         </BaseCard>
     )
 }
