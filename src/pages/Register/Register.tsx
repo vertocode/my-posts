@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react'
 import BaseCard from '../../components/Card/BaseCard'
 import RegisterImage from '../../assets/images/register.jpeg'
 
+import { useAuthentication } from '../../hooks/useAuthentication'
+
 const Register = (): ReactElement => {
     const [displayName, setDisplayName] = useState('')
     const [email, setEmail] = useState('')
@@ -12,7 +14,13 @@ const Register = (): ReactElement => {
     const [confirmPassword, setConfirmPassword] = useState()
     const [error, setError] = useState()
 
-    const handleSubmit = (e) => {
+    const { createUser, error: authErrors } = useAuthentication()
+
+    useEffect(() => {
+        setError(authErrors)
+    }, [authErrors])
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         setError('')
@@ -27,6 +35,10 @@ const Register = (): ReactElement => {
             setError('Passwords do not match')
             return
         }
+
+        const res = await createUser(user)
+
+        console.log(res)
 
         console.log(user)
     }
