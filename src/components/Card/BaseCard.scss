@@ -1,0 +1,37 @@
+// styles.scss
+
+$dark-background: #282C34;
+$dark-text: white;
+$dark-shadow: rgba(0, 0, 0, 0.2);
+
+$light-background: #ffffff;
+$light-text: #282C34;
+$light-shadow: rgba(0, 0, 0, 0.1);
+
+.BaseCard {
+  margin: 2em auto;
+  padding: 2em;
+  min-height: 200px;
+  border-radius: 10px;
+  width: max-content;
+
+  background-color: $dark-background;
+  color: $dark-text;
+  box-shadow: 0 0 10px $dark-shadow;
+
+  h1 {
+    color: #61dafb;
+    text-align: center;
+  }
+
+  &.light {
+    background-color: $light-background;
+    color: $light-text;
+    box-shadow: 0 0 10px $light-shadow;
+
+    h1 {
+      color: #61dafb;
+      text-align: center;
+    }
+  }
+}

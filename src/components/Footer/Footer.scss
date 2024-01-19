@@ -1,0 +1,33 @@
+// Footer.scss
+
+$background-color: #282c34;
+$active-color: #61dafb;
+
+.Footer {
+  background-color: $background-color;
+  color: #ffffff;
+  padding: 10px;
+  text-align: center;
+
+  h3 {
+    color: $active-color;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+
+  p {
+    margin: 10px 0;
+    font-size: 1em;
+    line-height: 1.4;
+  }
+
+  a {
+    color: $active-color;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

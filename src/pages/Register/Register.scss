@@ -1,0 +1,27 @@
+.Register {
+  text-align: center;
+
+  main {
+    display: flex;
+    gap: 4em;
+    justify-content: space-around;
+    align-items: center;
+
+    h1 {
+      color: #61dafb;
+    }
+
+    p {
+      color: #aaa;
+    }
+
+    img {
+      width: 25rem;
+    }
+
+    form {
+      width: 300px;
+    }
+  }
+}
+
