@@ -105,6 +105,8 @@ input, textarea {
 
 button[disabled] {
   background-color: #aaa;
+  pointer-events: none;
+  cursor: not-allowed;
 }
 
 .container .error {

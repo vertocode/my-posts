@@ -14,7 +14,7 @@ const Register = (): ReactElement => {
     const [confirmPassword, setConfirmPassword] = useState()
     const [error, setError] = useState()
 
-    const { createUser, error: authErrors } = useAuthentication()
+    const { createUser, error: authErrors, loading } = useAuthentication()
 
     useEffect(() => {
         setError(authErrors)
@@ -36,11 +36,7 @@ const Register = (): ReactElement => {
             return
         }
 
-        const res = await createUser(user)
-
-        console.log(res)
-
-        console.log(user)
+        await createUser(user)
     }
 
     return (
@@ -100,7 +96,9 @@ const Register = (): ReactElement => {
                         />
                     </label>
 
-                    <button className="btn">Register</button>
+
+                    {!loading && <button className="btn">Register</button>}
+                    {loading && <button className="btn" disabled>Registering...</button>}
                 </form>
             </main>
             {error && <p className="error">{error}</p>}
