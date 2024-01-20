@@ -2,8 +2,11 @@ import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import './Navbar.scss'
 import { ReactElement } from 'react'
+import { useAuthentication } from '../../hooks/useAuthentication'
+import { useAuthValue } from '../../context/AuthContext'
 
 const Navbar = (): ReactElement => {
+    const { user } = useAuthValue()
     const [isMenuOpen, setMenuOpen] = useState(false)
 
     const toggleMenu = () => {
@@ -23,8 +26,18 @@ const Navbar = (): ReactElement => {
             <ul className={`Navbar-links${isMenuOpen ? ' open' : ''}`}>
                 <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/">Home</NavLink></li>
                 <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/about">About</NavLink></li>
-                <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/login">Login</NavLink></li>
-                <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/register">Register</NavLink></li>
+                {!user && (
+                    <>
+                        <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/login">Login</NavLink></li>
+                        <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/register">Register</NavLink></li>
+                    </>
+                )}
+                {user && (
+                    <>
+                        <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/posts/create">New Post</NavLink></li>
+                        <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/dashboard">Dashboard</NavLink></li>
+                    </>
+                )}
             </ul>
         </nav>
     )
