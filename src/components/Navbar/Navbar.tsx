@@ -1,19 +1,30 @@
-
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import './Navbar.scss'
 import { ReactElement } from 'react'
 
 const Navbar = (): ReactElement => {
+    const [isMenuOpen, setMenuOpen] = useState(false)
+
+    const toggleMenu = () => {
+        setMenuOpen(!isMenuOpen)
+    }
+
     return (
-        <nav className="Navbar">
+        <nav className={`Navbar${isMenuOpen ? ' open' : ''}`}>
+            <div className="menu-icon" onClick={toggleMenu}>
+                <div className="line"></div>
+            </div>
+
             <NavLink to="/" className="home-logo">
                 My<span className="posts">Posts</span>
             </NavLink>
-            <ul className="Navbar-links">
-                <li><NavLink to="/">Home</NavLink></li>
-                <li><NavLink to="/about">About</NavLink></li>
-                <li><NavLink to="/login">Login</NavLink></li>
-                <li><NavLink to="/register">Register</NavLink></li>
+
+            <ul className={`Navbar-links${isMenuOpen ? ' open' : ''}`}>
+                <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/">Home</NavLink></li>
+                <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/about">About</NavLink></li>
+                <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/login">Login</NavLink></li>
+                <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/register">Register</NavLink></li>
             </ul>
         </nav>
     )
