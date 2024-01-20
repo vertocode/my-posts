@@ -15,7 +15,7 @@ const Login = (): ReactElement => {
     const [error, setError] = useState()
 
     const { signIn, error: authErrors, loading } = useAuthentication()
-    const { navigate } = useNavigate()
+    const navigate = useNavigate()
 
     useEffect(() => {
         setError(authErrors)
