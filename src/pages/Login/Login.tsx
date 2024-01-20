@@ -14,19 +14,21 @@ const Login = (): ReactElement => {
     const [password, setPassword] = useState()
     const [error, setError] = useState()
 
-    const { signIn, error: authErrors, loading } = useAuthentication()
+    const { signIn, error: authError, loading } = useAuthentication()
     const navigate = useNavigate()
 
     useEffect(() => {
-        setError(authErrors)
-    }, [authErrors])
+        setError(authError)
+    }, [authError])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        await signIn({ email, password })
+        const response = await signIn({ email, password })
+        console.log('response: ', response)
 
-        if (!authErrors) {
+        console.log(authError, error)
+        if (!authError && response) {
             navigate('/')
         }
     }
@@ -43,7 +45,7 @@ const Login = (): ReactElement => {
                     <TextField type="email" label="Email" variant="standard" onChange={ (e) => setEmail(e.target.value) }/>
                     <TextField type="password" label="Password" variant="standard" onChange={ (e) => setPassword(e.target.value) } />
                     {!loading && <Button type="submit" variant="contained">Log in</Button>}
-                    {loading && <LoadingButton type="submit" variant="contained">Loading...</LoadingButton>}
+                    {loading && <LoadingButton loading type="submit" variant="contained">Loading...</LoadingButton>}
                     <p>Do not have account yet? <Link style={{ color: '#1466C1' }} to="/register">Click here to create!</Link> </p>
                 </form>
             </main>
