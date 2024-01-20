@@ -7,6 +7,7 @@ import LoadingButton from '@mui/lab/LoadingButton'
 import TextField from '@mui/material/TextField'
 import {Link} from "react-router-dom";
 import {useAuthentication} from "../../hooks/useAuthentication.tsx";
+import {useNavigate} from "react-router-dom";
 
 const Login = (): ReactElement => {
     const [email, setEmail] = useState()
@@ -14,15 +15,20 @@ const Login = (): ReactElement => {
     const [error, setError] = useState()
 
     const { signIn, error: authErrors, loading } = useAuthentication()
+    const { navigate } = useNavigate()
 
     useEffect(() => {
         setError(authErrors)
     }, [authErrors])
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
-        signIn({ email, password })
+        await signIn({ email, password })
+
+        if (!authErrors) {
+            navigate('/')
+        }
     }
 
     return (
