@@ -22,11 +22,6 @@ $active-color: #1876D1;
     display: flex;
     align-items: center;
     font-weight: 200;
-
-    .posts {
-      font-weight: 600;
-      color: $active-color;
-    }
   }
 
   &-links {
@@ -98,7 +93,7 @@ $active-color: #1876D1;
 
       li {
         width: 100%;
-        text-align: center;
+        text-align: left;
         padding: 1em;
 
         &:last-child {

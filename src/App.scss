@@ -1,6 +1,21 @@
+$active-color: #1876D1;
+
 .App {
   .container {
     min-height: 69.5vh;
     margin-bottom: 5em;
+  }
+
+  .posts-title {
+    font-weight: 600;
+    color: $active-color;
+  }
+
+  p {
+    color: white;
+
+    a {
+      color: $active-color;
+    }
   }
 }

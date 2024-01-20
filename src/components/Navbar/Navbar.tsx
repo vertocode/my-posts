@@ -20,7 +20,7 @@ const Navbar = (): ReactElement => {
             </div>
 
             <NavLink to="/" className="home-logo">
-                My<span className="posts">Posts</span>
+                My<span className="posts-title">Posts</span>
             </NavLink>
 
             <ul className={`Navbar-links${isMenuOpen ? ' open' : ''}`}>
