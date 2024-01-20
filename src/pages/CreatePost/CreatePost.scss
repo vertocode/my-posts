@@ -4,6 +4,10 @@
   justify-content: center;
   align-items: center;
 
+  h1 {
+    color: #1876D1;
+  }
+
   form {
     width: 70%;
   }
@@ -37,6 +41,34 @@
       flex-wrap: wrap;
       gap: 1em;
       border: 1px solid white;
+    }
+  }
+
+  .create-post {
+    .post-content {
+      margin: 0;
+      padding: 1em;
+      width: 100%;
+      background-color: white;
+
+      p {
+        color: black;
+      }
+    }
+    .editor {
+      display:flex;
+      justify-content: space-between;
+      color: white;
+      width: 100%;
+      .chips {
+        border-radius: 5px;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        cursor: pointer;
+        padding: 5px;
+      }
     }
   }
 }

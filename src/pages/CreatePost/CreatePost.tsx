@@ -24,9 +24,45 @@ const CreatePost = (): ReactElement => {
         }
     }
 
-    useEffect(() => {
+    const focusPost = () => {
         const postContent = document.querySelector('.post-content')
-        postContent.innerHTML = `<${tagHtml}> ${postContent.textContent} </${tagHtml}>`.replaceAll('<>', '')
+        postContent.focus()
+    }
+
+    const handleEdit = (htmlTag) => {
+        const postContent = document.querySelector('.post-content')
+        const selectedText = window.getSelection().toString()
+        const [elementWithText] = Array.from(document.querySelectorAll('.post-content *')).filter(element => element.innerText.includes(selectedText))
+        const { localName = null } = elementWithText || {}
+        console.log(localName)
+        if (!localName && selectedText) {
+            postContent.innerHTML = postContent.innerHTML.replace(`${selectedText}`, `<${htmlTag}>${selectedText}</${htmlTag}>`)
+            return
+        } else if (selectedText) {
+            postContent.innerHTML = postContent.innerHTML.replace(`<${localName}>${selectedText}</${localName}>`, `<${htmlTag}>${selectedText}</${htmlTag}>`)
+        } else {
+            const text = (() => {
+               switch (htmlTag) {
+                   case 'h1':
+                        return 'Title'
+                    case 'h2':
+                      return 'Sub Title'
+                    case 'p':
+                        return 'Paragraph'
+                    case 'blockquote':
+                        return 'Blockquote'
+                    case 'code':
+                        return 'Code'
+                    default:
+                        return 'Text'
+               }
+            })()
+            postContent.innerHTML = postContent.innerHTML += `<${htmlTag}>${text}</${htmlTag}>`
+        }
+    }
+
+    useEffect(() => {
+        handleEdit(tagHtml)
     }, [tagHtml])
 
     return (
@@ -49,20 +85,26 @@ const CreatePost = (): ReactElement => {
                     variant="standard"
                     onChange={ (e) => setImage(e.target.value) }
                 />
-                <TextField
-                    value={ tagHtml }
-                    type="text"
-                    label="Insert the html tag to your post"
-                    variant="standard"
-                    onChange={ (e) => setTagHtml(e.target.value) }
-                />
 
-                <blockquote className="post-content" contentEditable="true">
-                    <h2>MyPosts</h2>
-                    <p>This is fundamental to create great posts.</p>
+                <div className="create-post">
+                    <blockquote className="post-content" contentEditable="true" suppressContentEditableWarning={true}>
+                        <h1>MyPosts</h1>
+                        <p>You can edit and style this content.</p>
 
-                    <h1>Click here to edit it and write your post!</h1>
-                </blockquote>
+                        <h2>Click here to edit it and write your post!</h2>
+                    </blockquote>
+                    <div className="editor">
+                        <span style={{ cursor: 'pointer' }} onClick={ focusPost }>Edit <i className="fa fa-edit"></i></span>
+                        <div className="chips">
+                            <Chip onClick={ () => setTagHtml('h1') } label="Title"  />
+                            <Chip onClick={ () => setTagHtml('h2') } label="Sub Title"  />
+                            <Chip onClick={ () => setTagHtml('p') } label="Paragraph"  />
+                            <Chip onClick={ () => setTagHtml('blockquote') } label="Blockquote" />
+                            <Chip onClick={ () => setTagHtml('code') } label="Code"  />
+                        </div>
+                    </div>
+                </div>
+
 
                 <div className="tags">
                     <div className="input-container">
