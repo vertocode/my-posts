@@ -8,6 +8,7 @@ import Button from '@mui/material/Button'
 import LoadingButton from '@mui/lab/LoadingButton';
 import TextField from '@mui/material/TextField'
 
+import { useNavigate } from 'react-router-dom'
 import { useAuthentication } from '../../hooks/useAuthentication'
 
 const Register = (): ReactElement => {
@@ -18,6 +19,7 @@ const Register = (): ReactElement => {
     const [error, setError] = useState()
 
     const { createUser, error: authErrors, loading } = useAuthentication()
+    const navigate = useNavigate()
 
     useEffect(() => {
         setError(authErrors)
@@ -40,6 +42,10 @@ const Register = (): ReactElement => {
         }
 
         await createUser(user)
+
+        if (!authErrors) {
+            navigate('/login')
+        }
     }
 
     return (
@@ -67,7 +73,7 @@ const Register = (): ReactElement => {
                         name="displayEmail"
                         required
                         type="email"
-                        label="Name"
+                        label="Email"
                         variant="standard"
                         onChange={e => setEmail(e.target.value)}
                     />

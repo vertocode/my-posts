@@ -11,7 +11,6 @@ import {
 import { useState, useEffect } from 'react'
 
 export const useAuthentication = () => {
-    console.log(db)
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(null)
 
@@ -46,6 +45,23 @@ export const useAuthentication = () => {
         setLoading(false)
     }
 
+    const signIn = async (data) => {
+        console.log(db)
+        checkIfIsCancelled()
+
+        setError('')
+        setLoading(true)
+
+        try {
+            await signInWithEmailAndPassword(auth, data.email, data.password)
+        } catch (error) {
+            console.log(error.message)
+            setError(error.message)
+        }
+
+        setLoading(false)
+    }
+
     useEffect(() => {
         return () => setCancelled(true)
     }, [])
@@ -53,6 +69,7 @@ export const useAuthentication = () => {
     return {
         auth,
         createUser,
+        signIn,
         error,
         loading
     }
