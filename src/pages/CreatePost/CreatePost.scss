@@ -1,0 +1,42 @@
+.CreatePost {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  form {
+    width: 70%;
+  }
+
+  input {
+    color: white;
+  }
+
+  label {
+    color: white;
+  }
+
+  textarea {
+    background-color: white;
+    color: black;
+  }
+
+  .tags {
+    .input-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 1em;
+    }
+
+    .tags-container {
+      margin: 1em auto;
+      padding: 1em;
+      max-width: 400px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+      border: 1px solid white;
+    }
+  }
+}
