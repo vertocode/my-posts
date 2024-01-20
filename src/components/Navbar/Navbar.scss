@@ -1,7 +1,7 @@
 // Navbar.scss
 
 $background-color: #282c34;
-$active-color: #61dafb;
+$active-color: #1876D1;
 
 .Navbar {
   display: flex;
@@ -106,7 +106,7 @@ $active-color: #61dafb;
         }
 
         :hover {
-            background-color: #61dafb;
+            background-color: #1876D1;
             color: white;
         }
       }

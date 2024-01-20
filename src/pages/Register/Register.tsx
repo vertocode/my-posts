@@ -4,6 +4,9 @@ import {ReactElement} from 'react'
 import { useState, useEffect } from 'react'
 import BaseCard from '../../components/Card/BaseCard'
 import RegisterImage from '../../assets/images/register.jpeg'
+import Button from '@mui/material/Button'
+import LoadingButton from '@mui/lab/LoadingButton';
+import TextField from '@mui/material/TextField'
 
 import { useAuthentication } from '../../hooks/useAuthentication'
 
@@ -47,58 +50,51 @@ const Register = (): ReactElement => {
 
             <main>
                 <img src={RegisterImage} alt="register-image"/>
+
                 <form onSubmit={handleSubmit}>
-                    <label>
-                        <span>Name: </span>
-                        <input
-                            value={displayName}
-                            type="text"
-                            name="displayName"
-                            required
-                            placeholder="Type your name"
-                            onChange={e => setDisplayName(e.target.value)}
-                        />
-                    </label>
+                    <TextField
+                        value={displayName}
+                        name="displayName"
+                        required
+                        type="text"
+                        label="Name"
+                        variant="standard"
+                        onChange={e => setDisplayName(e.target.value)}
+                    />
 
-                    <label>
-                        <span>Email: </span>
-                        <input
-                            value={email}
-                            type="email"
-                            name="displayEmail"
-                            required
-                            placeholder="Type your email"
-                            onChange={e => setEmail(e.target.value)}
-                        />
-                    </label>
+                    <TextField
+                        value={email}
+                        name="displayEmail"
+                        required
+                        type="email"
+                        label="Name"
+                        variant="standard"
+                        onChange={e => setEmail(e.target.value)}
+                    />
 
-                    <label>
-                        <span>Password: </span>
-                        <input
-                            value={password}
-                            type="password"
-                            name="displayPassword"
-                            required
-                            placeholder="Type your password"
-                            onChange={e => setPassword(e.target.value)}
-                        />
-                    </label>
+                    <TextField
+                        value={password}
+                        name="displayPassword"
+                        required
+                        type="password"
+                        label="Password"
+                        variant="standard"
+                        onChange={e => setPassword(e.target.value)}
+                    />
 
-                    <label>
-                        <span>Confirm Password: </span>
-                        <input
-                            value={confirmPassword}
-                            type="password"
-                            name="confirmPassword"
-                            required
-                            placeholder="Confirm your password"
-                            onChange={e => setConfirmPassword(e.target.value)}
-                        />
-                    </label>
+                    <TextField
+                        value={confirmPassword}
+                        name="confirmPassword"
+                        required
+                        type="password"
+                        label="Confirm Password"
+                        variant="standard"
+                        onChange={e => setConfirmPassword(e.target.value)}
+                    />
 
 
-                    {!loading && <button className="btn">Register</button>}
-                    {loading && <button className="btn" disabled>Registering...</button>}
+                    {!loading && <Button type="submit" variant="contained">Register</Button>}
+                    {loading && <LoadingButton loading type="submit" variant="contained">Registering...</LoadingButton>}
                 </form>
             </main>
             {error && <p className="error">{error}</p>}

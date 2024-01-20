@@ -1,3 +1,31 @@
 .Login {
+  text-align: center;
 
+  main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4em;
+    justify-content: space-around;
+    align-items: center;
+
+    h1 {
+      color: #1876D1;
+    }
+
+    p {
+      color: #aaa;
+    }
+
+    img {
+      width: 25rem;
+    }
+
+    form {
+      width: 300px;
+    }
+
+    label {
+      color: white;
+    }
+  }
 }

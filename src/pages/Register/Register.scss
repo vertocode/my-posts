@@ -3,12 +3,17 @@
 
   main {
     display: flex;
+    flex-wrap: wrap;
     gap: 4em;
     justify-content: space-around;
     align-items: center;
 
+    .MuiFormLabel-root {
+      color: white;
+    }
+
     h1 {
-      color: #61dafb;
+      color: #1876D1;
     }
 
     p {
