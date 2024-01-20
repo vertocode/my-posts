@@ -4,9 +4,11 @@ import { ReactElement } from 'react';
 import ProfileImg from '../../assets/images/profile.jpeg';
 import Button from '@mui/material/Button'
 import { useNavigate } from 'react-router-dom';
+import { useAuthValue } from '../../context/AuthContext'
 
 const About = (): ReactElement => {
     const navigate = useNavigate()
+    const { user } = useAuthValue()
 
     const handleRedirect = () => {
         navigate('/posts/create')
@@ -50,10 +52,14 @@ const About = (): ReactElement => {
                 </aside>
             </div>
 
-            <footer>
-                <h2>Start build a new post to share with friends – I bet they'll like it!</h2>
-                <Button onClick={ handleRedirect } variant="contained" color="primary">New Post</Button>
-            </footer>
+            {
+                user && (
+                    <footer>
+                        <h2>Start build a new post to share with friends – I bet they'll like it!</h2>
+                        <Button onClick={ handleRedirect } variant="contained" color="primary">New Post</Button>
+                    </footer>
+                )
+            }
         </div>
     )
 }
