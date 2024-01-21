@@ -1,7 +1,7 @@
 .PostDetails {
   cursor: pointer;
   margin: 0 auto;
-  padding: 20px;
+  padding: 10px;
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -49,9 +49,11 @@
   header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     .tags {
       display: flex;
+      align-items: flex-start;
       gap: 10px;
       flex-wrap: wrap;
 

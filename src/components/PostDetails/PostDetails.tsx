@@ -19,9 +19,8 @@ const PostComponent = ({ post }) => {
 
                 { tags?.length > 0 && (
                     <p className="tags">
-                        Tags:
                         { tags.map((tag, index) => (
-                            <Chip style={{color: 'white'}} variant="outlined" key={ index } className="post-tag" label={tag}>{ tag }</Chip>
+                            <Chip style={{color: 'white'}} variant="outlined" key={ index } className="post-tag" label={`#${tag}`}>{ tag }</Chip>
                         ))}
                     </p>
                 )}
@@ -50,8 +49,7 @@ const PostComponent = ({ post }) => {
                 )
             }
 
-            <p className="post-content" dangerouslySetInnerHTML={{ __html: content }} />
-
+            {/*<p className="post-content" dangerouslySetInnerHTML={{ __html: content }} />*/}
         </div>
     )
 }
