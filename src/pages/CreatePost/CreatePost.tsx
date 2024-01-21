@@ -5,15 +5,26 @@ import { useAuthValue } from '../../context/AuthContext'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Chip from '@mui/material/Chip'
+import Avatar from '@mui/material/Avatar'
 
 const CreatePost = (): ReactElement => {
     const [title, setTitle] = useState('')
     const [image, setImage] = useState('')
-    const [body, setBody] = useState('')
+    const [body] = useState('')
     const [tags, setTags] = useState([])
     const [formError, setFormError] = useState('')
     const [tagHtml, setTagHtml] = useState('')
     const [customTag, setCustomTag] = useState('')
+    const [customColor, setCustomColor] = useState('black')
+
+    const [editableElements] = useState([
+        { tag: 'h1', title: 'Title' },
+        { tag: 'h2', title: 'Sub Title' },
+        { tag: 'h3', title: 'Sub Title 2' },
+        { tag: 'p', title: 'Paragraph' },
+        { tag: 'blockquote', title: 'Blockquote' },
+        { tag: 'code', title: 'Code' }
+    ])
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -34,12 +45,15 @@ const CreatePost = (): ReactElement => {
         const selectedText = window.getSelection().toString()
         const [elementWithText] = Array.from(document.querySelectorAll('.post-content *')).filter(element => element.innerText.includes(selectedText))
         const { localName = null } = elementWithText || {}
-        console.log(localName)
+        console.log(htmlTag, 'htmlTag')
+        console.log(localName, 'localName')
         if (!localName && selectedText) {
+            console.log('entrou')
             postContent.innerHTML = postContent.innerHTML.replace(`${selectedText}`, `<${htmlTag}>${selectedText}</${htmlTag}>`)
-            return
         } else if (selectedText) {
-            postContent.innerHTML = postContent.innerHTML.replace(`<${localName}>${selectedText}</${localName}>`, `<${htmlTag}>${selectedText}</${htmlTag}>`)
+            // Get the element with all the attributes
+            const regex = new RegExp(`<(${localName})([^>]*)>${selectedText}</${localName}>`, 'g');
+            postContent.innerHTML = postContent.innerHTML.replace(regex, `<${htmlTag} style="color: ${customColor}">${selectedText}</${htmlTag}>`)
         } else {
             const text = (() => {
                switch (htmlTag) {
@@ -57,13 +71,29 @@ const CreatePost = (): ReactElement => {
                         return 'Text'
                }
             })()
-            postContent.innerHTML = postContent.innerHTML += `<${htmlTag}>${text}</${htmlTag}>`
+            postContent.innerHTML = postContent.innerHTML += `<${htmlTag} style="color: ${customColor}">${text}</${htmlTag}>`
         }
     }
 
     useEffect(() => {
-        handleEdit(tagHtml)
+        if (tagHtml) {
+            handleEdit(tagHtml)
+            setTagHtml('')
+        }
     }, [tagHtml])
+
+    useEffect(() => {
+        const selectedText = window.getSelection().toString()
+        if (customColor && selectedText) {
+            const postContent = document.querySelector('.post-content')
+            const [elementWithText] = Array.from(document.querySelectorAll('.post-content *')).filter(element => element.innerText.includes(selectedText))
+            const { localName = null } = elementWithText || {}
+
+            // Get the element with all the attributes
+            const regex = new RegExp(`<(${localName})([^>]*)>${selectedText}</${localName}>`, 'g')
+            postContent.innerHTML = postContent.innerHTML.replace(regex, `<${localName} style="color: ${customColor}">${selectedText}</${localName}>`)
+        }
+    })
 
     return (
         <div className="CreatePost">
@@ -90,17 +120,19 @@ const CreatePost = (): ReactElement => {
                     <blockquote className="post-content" contentEditable="true" suppressContentEditableWarning={true}>
                         <h1>MyPosts</h1>
                         <p>You can edit and style this content.</p>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in odio eget quam varius tristique. Donec faucibus eros tortor. Etiam auctor scelerisque erat. Curabitur mollis scelerisque metus et scelerisque. Nam sapien enim, tristique a mauris a, finibus luctus est. Phasellus hendrerit odio malesuada justo ultrices viverra. In a risus non nibh tempor placerat sit amet nec ex. Proin sed interdum tellus, quis iaculis sem. Nam mi quam, dictum non lobortis quis, vestibulum auctor ante. Donec ut sagittis orci. Aliquam vitae est nec nunc varius maximus. Maecenas malesuada laoreet euismod. Cras lobortis ex non ligula mattis lacinia. Maecenas ornare eleifend mattis. Morbi pretium malesuada quam, a auctor est viverra tempor. Aliquam scelerisque eros a magna placerat, et pulvinar diam sagittis.
+                        </p>
 
-                        <h2>Click here to edit it and write your post!</h2>
+                        <h2>Click here to edit it and start your new post!</h2>
                     </blockquote>
                     <div className="editor">
-                        <span style={{ cursor: 'pointer' }} onClick={ focusPost }>Edit <i className="fa fa-edit"></i></span>
+                        <span style={{ cursor: 'pointer', marginTop: '.5em' }} onClick={ focusPost }>Edit <i className="fa fa-edit"></i></span>
                         <div className="chips">
-                            <Chip onClick={ () => setTagHtml('h1') } label="Title"  />
-                            <Chip onClick={ () => setTagHtml('h2') } label="Sub Title"  />
-                            <Chip onClick={ () => setTagHtml('p') } label="Paragraph"  />
-                            <Chip onClick={ () => setTagHtml('blockquote') } label="Blockquote" />
-                            <Chip onClick={ () => setTagHtml('code') } label="Code"  />
+                            {editableElements.map((element) => (
+                                <Chip onClick={ () => setTagHtml(element.tag) } label={ element.title } avatar={ <Avatar>{element.tag}</Avatar> }  />
+                            ))}
+                            <input onBlur={ (e) => setCustomColor(e.target.value) } type="color"/>
                         </div>
                     </div>
                 </div>
@@ -129,8 +161,8 @@ const CreatePost = (): ReactElement => {
                         <div className="tags-container">
                             {tags.map((tag) => (
                                 <Chip
-                                    onClick={ () => setTags(tags => tags.filter(currentTag => currentTag !== tag)) }
-                                    color="warning" key={ tag } label={ `${tag} X` }
+                                    onDelete={ () => setTags(tags => tags.filter(currentTag => currentTag !== tag)) }
+                                    color="warning" key={ tag } label={ tag }
                                 />
                             ))}
                         </div>
