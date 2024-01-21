@@ -10,7 +10,6 @@ import Avatar from '@mui/material/Avatar'
 const CreatePost = (): ReactElement => {
     const [title, setTitle] = useState('')
     const [image, setImage] = useState('')
-    const [body] = useState('')
     const [tags, setTags] = useState([])
     const [formError, setFormError] = useState('')
     const [tagHtml, setTagHtml] = useState('')
@@ -28,8 +27,10 @@ const CreatePost = (): ReactElement => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        const postContent = document.querySelector('.post-content')
+        const content = postContent.getInnerHTML()
 
-        if (!title || !body) {
+        if (!title || !content) {
             setFormError('Please fill all the required fields')
             return
         }
@@ -45,10 +46,7 @@ const CreatePost = (): ReactElement => {
         const selectedText = window.getSelection().toString()
         const [elementWithText] = Array.from(document.querySelectorAll('.post-content *')).filter(element => element.innerText.includes(selectedText))
         const { localName = null } = elementWithText || {}
-        console.log(htmlTag, 'htmlTag')
-        console.log(localName, 'localName')
         if (!localName && selectedText) {
-            console.log('entrou')
             postContent.innerHTML = postContent.innerHTML.replace(`${selectedText}`, `<${htmlTag}>${selectedText}</${htmlTag}>`)
         } else if (selectedText) {
             // Get the element with all the attributes
