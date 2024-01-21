@@ -1,9 +1,11 @@
 import './CreatePost.scss'
-import { ReactElement, useState, useEffect, useRef } from 'react'
+import { ReactElement, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthValue } from '../../context/AuthContext'
+import { useInsertDocument } from '../../hooks/useInsertDocument'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
+import LoadingButton from '@mui/lab/LoadingButton'
 import Chip from '@mui/material/Chip'
 import Avatar from '@mui/material/Avatar'
 
@@ -15,6 +17,10 @@ const CreatePost = (): ReactElement => {
     const [tagHtml, setTagHtml] = useState('')
     const [customTag, setCustomTag] = useState('')
     const [customColor, setCustomColor] = useState('black')
+    const { insertDocument, response: { loading, error: documentError } } = useInsertDocument('posts')
+    const { user } = useAuthValue()
+
+    useEffect(() => setFormError(documentError), [documentError])
 
     const [editableElements] = useState([
         { tag: 'h1', title: 'Title' },
@@ -25,7 +31,8 @@ const CreatePost = (): ReactElement => {
         { tag: 'code', title: 'Code' }
     ])
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
+        setFormError('')
         e.preventDefault()
         const postContent = document.querySelector('.post-content')
         const content = postContent.getInnerHTML()
@@ -34,7 +41,20 @@ const CreatePost = (): ReactElement => {
             setFormError('Please fill all the required fields')
             return
         }
+
+        console.log(user)
+       await insertDocument({
+            title,
+            image,
+            content,
+            tags,
+            uid: user.uid,
+            createdBy: user.displayName
+        })
+
+        // redirect homepage
     }
+
 
     const focusPost = () => {
         const postContent = document.querySelector('.post-content')
@@ -91,7 +111,7 @@ const CreatePost = (): ReactElement => {
             const regex = new RegExp(`<(${localName})([^>]*)>${selectedText}</${localName}>`, 'g')
             postContent.innerHTML = postContent.innerHTML.replace(regex, `<${localName} style="color: ${customColor}">${selectedText}</${localName}>`)
         }
-    })
+    }, [customColor])
 
     return (
         <div className="CreatePost">
@@ -115,6 +135,7 @@ const CreatePost = (): ReactElement => {
                 />
 
                 <div className="create-post">
+                    <p>If you add any code in html, the result in the posts will follow your code. (warn: if you add a wrong code, it can break your content.)</p>
                     <blockquote className="post-content" contentEditable="true" suppressContentEditableWarning={true}>
                         <h1>MyPosts</h1>
                         <p>You can edit and style this content.</p>
@@ -166,7 +187,9 @@ const CreatePost = (): ReactElement => {
                         </div>
                     )}
                 </div>
-                <Button type="submit" variant="contained" color="info">Post</Button>
+
+                {!loading && <Button type="submit" variant="contained" color="info">Post</Button>}
+                {loading && <LoadingButton loading type="submit" variant="contained">Posting...</LoadingButton>}
             </form>
             {formError && <p className="error">{formError}</p>}
         </div>
