@@ -130,7 +130,7 @@ const CreatePost = (): ReactElement => {
                         <span style={{ cursor: 'pointer', marginTop: '.5em' }} onClick={ focusPost }>Edit <i className="fa fa-edit"></i></span>
                         <div className="chips">
                             {editableElements.map((element) => (
-                                <Chip onClick={ () => setTagHtml(element.tag) } label={ element.title } avatar={ <Avatar>{element.tag}</Avatar> }  />
+                                <Chip key={`${element.tag}-editable-element`} onClick={ () => setTagHtml(element.tag) } label={ element.title } avatar={ <Avatar>{element.tag}</Avatar> }  />
                             ))}
                             <input onBlur={ (e) => setCustomColor(e.target.value) } type="color"/>
                         </div>
