@@ -2,11 +2,11 @@
   cursor: pointer;
   margin: 0 auto;
   padding: 20px;
-  width: 70%;
+  width: 100%;
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: #282C34;
+  background-color: transparent;
 
   .post-title {
     font-size: 24px;
@@ -49,5 +49,12 @@
   header {
     display: flex;
     justify-content: space-between;
+
+    .tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+
+    }
   }
 }

@@ -51,7 +51,7 @@ const Home = (): ReactElement => {
                     </div>
                 )}
                 {posts.map((post) => (
-                    <Link style={{ width: '100%' }} to={ `/posts/${post.id}` } key={ post.id }>
+                    <Link style={{ width: '80%' }} to={ `/posts/${post.id}` } key={ post.id }>
                         <PostDetails key={ post.id } post={ post } />
                     </Link>
                 ))}
