@@ -19,6 +19,7 @@ const CreatePost = (): ReactElement => {
     const [customColor, setCustomColor] = useState('black')
     const { insertDocument, response: { loading, error: documentError } } = useInsertDocument('posts')
     const { user } = useAuthValue()
+    const navigate = useNavigate()
 
     useEffect(() => setFormError(documentError), [documentError])
 
@@ -42,7 +43,6 @@ const CreatePost = (): ReactElement => {
             return
         }
 
-        console.log(user)
        await insertDocument({
             title,
             image,
@@ -52,7 +52,7 @@ const CreatePost = (): ReactElement => {
             createdBy: user.displayName
         })
 
-        // redirect homepage
+        navigate('/')
     }
 
 
