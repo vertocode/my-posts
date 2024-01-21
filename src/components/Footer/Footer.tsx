@@ -1,4 +1,3 @@
-// Footer.jsx
 import './Footer.scss';
 import { ReactElement } from 'react';
 
