@@ -1,0 +1,45 @@
+.Home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+
+  h1 {
+    color: #1876D1;
+  }
+
+  form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 0 2em;
+    margin-bottom: 2em;
+
+    input {
+      width: 70vw;
+      color: white;
+    }
+
+    button {
+      width: 7em;
+      height: 3em;
+    }
+
+    [disabled] {
+      color: gray;
+    }
+  }
+
+  .noposts {
+    text-align: center;
+
+    p {
+      margin-bottom: 1.5em;
+    }
+
+    a {
+      padding: 10px 25px;
+    }
+  }
+}
