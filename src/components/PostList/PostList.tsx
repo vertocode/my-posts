@@ -43,21 +43,22 @@ const PostList = ({ userId = null }): ReactElement => {
                 </div>
 
 
-                {!loading && <Button size="small" type="submit" variant="contained">Search</Button>}
+                {!loading && <Button disabled={ !search } size="small" type="submit" variant="contained">Search</Button>}
                 {loading && <LoadingButton size="small" loading type="submit" variant="contained">Loading...</LoadingButton>}
+                {!loading && isSearchRoute && <Button onClick={ () => navigate('/') } size="small" type="submit" color="success" variant="contained">Clear</Button>}
             </form>
             <main key={`list-with-search-${search}`}>
                 { loading && <p>Loading...</p> }
-                {posts.length === 0 && isSearchRoute && !loading && (
+                {posts && posts.length === 0 && isSearchRoute && !loading && (
                     <div className="noposts">
-                        <h2 style={{ color: 'white' }}>No posts found according to your search</h2>
+                        <h2>No posts found according to your search</h2>
                         <p>Try searching for something else, or clear this search criteria.</p>
                         <Link to="/">
                             <Button variant="contained" color="success">Clear Filter</Button>
                         </Link>
                     </div>
                 )}
-                {posts.length === 0 && !isSearchRoute && !loading && (
+                {posts && posts.length === 0 && !isSearchRoute && !loading && (
                     <div className="noposts">
                         <h2>{userId ? 'No posts created by you' : 'No posts found'}</h2>
                         <p>Try create a new post.</p>
@@ -66,7 +67,7 @@ const PostList = ({ userId = null }): ReactElement => {
                         </Link>
                     </div>
                 )}
-                {posts.map((post) => (
+                {posts && posts.map((post) => (
                     <Link style={{ width: '80%' }} to={ `/posts/${post.id}` } key={ post.id }>
                         <PostDetails key={ post.id } post={ post } />
                     </Link>

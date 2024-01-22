@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { db } from '../firebase/config'
-import { collection, query, orderBy, onSnapshot, where } from 'firebase/firestore'
+import { collection, query, orderBy, onSnapshot, where, or, and } from 'firebase/firestore'
 import {useQuery} from "./useQuery.tsx"
 import {useLocation} from "react-router-dom";
 
@@ -29,7 +29,22 @@ export const useFetchDocuments = (docCollection: string, uid = null) => {
 
                 if (search) {
                     q = await query(
-                        collectionRef, where('tags', 'array-contains', search),
+                        collectionRef,
+                        or(
+                            where('tags', 'array-contains', search),
+                            and(
+                                where('title', '>=', search),
+                                where('title', '<=', search + '\uf8ff')
+                            ),
+                            and(
+                                where('createdBy', '>=', search),
+                                where('createdBy', '<=', search + '\uf8ff')
+                            ),
+                            and(
+                                where('content', '>=', search),
+                                where('content', '<=', search + '\uf8ff')
+                            )
+                        ),
                         orderBy('createdAt', 'desc')
                     )
                 } else if (uid) {
