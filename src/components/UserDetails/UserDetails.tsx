@@ -37,6 +37,7 @@ const UserDetails = ({ user }): ReactElement => {
                     {isEditingPhotoURL && (
                         <TextField
                             onChange={(e) => setPhotoURL(e.target.value)}
+                            onBlur={() => setIsEditingPhotoURL(false)}
                             label="Photo URL"
                             variant="standard"
                             value={photoURL}

@@ -6,14 +6,14 @@ import TextField from "@mui/material/TextField";
 import {FormHelperText} from "@mui/material";
 import Button from "@mui/material/Button";
 import LoadingButton from "@mui/lab/LoadingButton";
-import PostDetails from "../../components/PostDetails/PostDetails.tsx";
+import PostDetails from "../PostDetails/PostDetails.tsx";
 
-const PostList = (): ReactElement => {
+const PostList = ({ userId = null }): ReactElement => {
     const [posts, setPosts] = useState([])
     const navigate = useNavigate()
     const location = useLocation()
     const isSearchRoute = location.pathname.includes('search')
-    const { documents: fetchedPosts, loading, search: fetchSearch } = useFetchDocuments('posts')
+    const { documents: fetchedPosts, loading, search: fetchSearch } = useFetchDocuments('posts', userId)
     const [search, setSearch] = useState(fetchSearch || '')
 
     const handleSubmit = (e) => {
@@ -26,13 +26,12 @@ const PostList = (): ReactElement => {
     }
 
     useEffect(() => {
-        console.log('executou aqui', fetchedPosts)
         setPosts(fetchedPosts || [])
     }, [fetchedPosts, location])
 
     return (
         <div className="PostList">
-            <h1>All Posts</h1>
+            <h1>{userId ? 'All your posts' : 'All posts'}</h1>
             <form onSubmit={ handleSubmit }>
                 <div>
                     <TextField
@@ -60,10 +59,10 @@ const PostList = (): ReactElement => {
                 )}
                 {posts.length === 0 && !isSearchRoute && !loading && (
                     <div className="noposts">
-                        <h2>No posts found</h2>
+                        <h2>{userId ? 'No posts created by you' : 'No posts found'}</h2>
                         <p>Try create a new post.</p>
                         <Link to="/posts/create">
-                            <Button variant="contained" color="success">Create Post</Button>
+                            <Button variant="contained" color="success">New Post</Button>
                         </Link>
                     </div>
                 )}

@@ -5,7 +5,7 @@ import './App.scss'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 
 // pages
-import PostList from './pages/PostList/PostList'
+import Home from './pages/Home/Home.tsx'
 import About from './pages/About/About'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
@@ -50,8 +50,8 @@ function App() {
                 <Navbar />
                 <div className="container">
                     <Routes>
-                        <Route path="/" element={ <PostList key="postList" /> }/>
-                        <Route path="/search" element={ <PostList key="postListSearch" /> }/>
+                        <Route path="/" element={ <Home key="postList" /> }/>
+                        <Route path="/search" element={ <Home key="postListSearch" /> }/>
                         <Route path="/posts/:id" element={ <Post /> }/>
                         <Route path="/about" element={ <About /> }/>
                         <Route path="/login" element={ !user ? <Login /> : <Navigate to="/" /> }/>
