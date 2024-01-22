@@ -5,7 +5,7 @@ import './App.scss'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 
 // pages
-import Home from './pages/Home/Home'
+import PostList from './pages/PostList/PostList'
 import About from './pages/About/About'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
@@ -49,7 +49,8 @@ function App() {
                 <Navbar />
                 <div className="container">
                     <Routes>
-                        <Route path="/" element={ <Home /> }/>
+                        <Route path="/" element={ <PostList /> }/>
+                        <Route path="/search" element={ <PostList /> }/>
                         <Route path="/about" element={ <About /> }/>
                         <Route path="/login" element={ !user ? <Login /> : <Navigate to="/" /> }/>
                         <Route path="/register" element={ !user ? <Register /> : <Navigate to="/" /> }/>

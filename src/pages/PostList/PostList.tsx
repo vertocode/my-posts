@@ -1,29 +1,35 @@
-import './Home.scss'
-import { ReactElement } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import TextField from '@mui/material/TextField'
-import Button from '@mui/material/Button'
-import LoadingButton from '@mui/lab/LoadingButton'
-import { FormHelperText } from '@mui/material'
-import { useFetchDocuments } from '../../hooks/useFetchDocuments'
-import PostDetails from '../../components/PostDetails/PostDetails'
+import './PostList.scss'
+import {ReactElement, useEffect, useState} from 'react'
+import {Link, useNavigate, useLocation} from "react-router-dom";
+import {useFetchDocuments} from "../../hooks/useFetchDocuments.tsx";
+import TextField from "@mui/material/TextField";
+import {FormHelperText} from "@mui/material";
+import Button from "@mui/material/Button";
+import LoadingButton from "@mui/lab/LoadingButton";
+import PostDetails from "../../components/PostDetails/PostDetails.tsx";
 
-const Home = (): ReactElement => {
-    const [search, setSearch] = useState('')
+const PostList = (): ReactElement => {
     const [posts, setPosts] = useState([])
     const navigate = useNavigate()
-    const { documents: fetchedPosts, loading, error } = useFetchDocuments('posts')
-    console.log(fetchedPosts)
+    const { documents: fetchedPosts, loading, search: fetchSearch } = useFetchDocuments('posts')
+    const [search, setSearch] = useState(fetchSearch)
+    console.log('posts', posts)
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        setPosts(fetchedPosts)
+        console.log('posts', posts)
+        console.log('fetchPosts', fetchedPosts)
+        if (search) {
+            return navigate(`/search?q=${search}`)
+        }
     }
 
-    useEffect(() => fetchedPosts?.length ? setPosts(fetchedPosts) : undefined, [fetchedPosts])
+    useEffect(() => setPosts(fetchedPosts || []), [fetchedPosts, search])
 
     return (
-        <div className="Home">
+        <div className="PostList">
             <h1>All Posts</h1>
             <form onSubmit={ handleSubmit }>
                 <div>
@@ -60,4 +66,4 @@ const Home = (): ReactElement => {
     )
 }
 
-export default Home
+export default PostList

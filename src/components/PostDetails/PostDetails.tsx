@@ -20,7 +20,7 @@ const PostComponent = ({ post }) => {
                 { tags?.length > 0 && (
                     <p className="tags">
                         { tags.map((tag, index) => (
-                            <Chip style={{color: 'white'}} variant="outlined" key={ index } className="post-tag" label={`#${tag}`}>{ tag }</Chip>
+                            <Chip style={{color: 'white'}} variant="outlined" key={ index } className="post-tag" label={`#${tag}`}></Chip>
                         ))}
                     </p>
                 )}

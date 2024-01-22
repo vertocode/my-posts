@@ -45,6 +45,8 @@ const Register = (): ReactElement => {
 
         if (!authErrors) {
             navigate('/login')
+        } else {
+
         }
     }
 
