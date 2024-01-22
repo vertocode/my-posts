@@ -16,8 +16,10 @@ const PostList = ({ userId = null }): ReactElement => {
     const { documents: fetchedPosts, loading, search: fetchSearch } = useFetchDocuments('posts', userId)
     const [search, setSearch] = useState(fetchSearch || '')
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
+    const handleSubmit = (e = null) => {
+        if (e) {
+            e.preventDefault()
+        }
 
         setPosts(fetchedPosts)
         if (search) {

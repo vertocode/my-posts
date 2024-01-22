@@ -35,7 +35,17 @@ const PostComponent = ({ post }) => {
                 { tags?.length > 0 && (
                     <p className="tags">
                         { tags.map((tag, index) => (
-                            <Chip style={{color: '#AAAAAA'}} variant="outlined" key={ index } className="post-tag" label={`#${tag}`}></Chip>
+                            <Chip
+                                onClick={() => {
+                                    navigate(`/search?q=${tag}`)
+                                    scrollTo(0, 0)
+                                }}
+                                style={{color: '#AAAAAA'}}
+                                variant="outlined"
+                                key={ index }
+                                className="post-tag"
+                                label={`#${tag}`}
+                            ></Chip>
                         ))}
                     </p>
                 )}
