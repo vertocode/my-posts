@@ -10,6 +10,7 @@ import TextField from '@mui/material/TextField'
 
 import { useNavigate } from 'react-router-dom'
 import { useAuthentication } from '../../hooks/useAuthentication'
+import {IconButton} from "@mui/material";
 
 const Register = (): ReactElement => {
     const [displayName, setDisplayName] = useState('')
@@ -17,6 +18,8 @@ const Register = (): ReactElement => {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState()
     const [error, setError] = useState()
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
     const { createUser, error: authErrors, loading } = useAuthentication()
     const navigate = useNavigate()
@@ -81,20 +84,44 @@ const Register = (): ReactElement => {
                     />
 
                     <TextField
+                        InputProps={{
+                            endAdornment: (
+                                <IconButton
+                                    style={{ color: 'white' }}
+                                    aria-label="toggle password visibility"
+                                    edge="end"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                >
+                                    <i className={ showPassword ? 'fa fa-eye' : 'fa fa-eye-slash' }></i>
+                                </IconButton>
+                            )
+                        }}
                         value={password}
                         name="displayPassword"
                         required
-                        type="password"
+                        type={ showPassword ? 'text' : 'password' }
                         label="Password"
                         variant="standard"
                         onChange={e => setPassword(e.target.value)}
                     />
 
                     <TextField
+                        InputProps={{
+                            endAdornment: (
+                                <IconButton
+                                    style={{ color: 'white' }}
+                                    aria-label="toggle password visibility"
+                                    edge="end"
+                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                >
+                                    <i className={ showConfirmPassword ? 'fa fa-eye' : 'fa fa-eye-slash' }></i>
+                                </IconButton>
+                            )
+                        }}
                         value={confirmPassword}
                         name="confirmPassword"
                         required
-                        type="password"
+                        type={ showConfirmPassword ? 'text' : 'password' }
                         label="Confirm Password"
                         variant="standard"
                         onChange={e => setConfirmPassword(e.target.value)}
