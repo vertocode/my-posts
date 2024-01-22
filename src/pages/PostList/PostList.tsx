@@ -11,16 +11,16 @@ import PostDetails from "../../components/PostDetails/PostDetails.tsx";
 const PostList = (): ReactElement => {
     const [posts, setPosts] = useState([])
     const navigate = useNavigate()
+    const location = useLocation()
+    const isSearching = location.pathname
+    console.log('isSearching',isSearching)
     const { documents: fetchedPosts, loading, search: fetchSearch } = useFetchDocuments('posts')
-    const [search, setSearch] = useState(fetchSearch)
-    console.log('posts', posts)
+    const [search, setSearch] = useState(fetchSearch || '')
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
         setPosts(fetchedPosts)
-        console.log('posts', posts)
-        console.log('fetchPosts', fetchedPosts)
         if (search) {
             return navigate(`/search?q=${search}`)
         }

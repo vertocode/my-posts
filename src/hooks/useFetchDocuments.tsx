@@ -2,16 +2,13 @@ import { useState, useEffect } from 'react'
 import { db } from '../firebase/config'
 import { collection, query, orderBy, onSnapshot, where } from 'firebase/firestore'
 import {useQuery} from "./useQuery.tsx"
-import {useLocation} from "react-router-dom";
 
 export const useFetchDocuments = (docCollection: string, uid = null) => {
     const [documents, setDocuments] = useState(null)
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(null)
-    const location = useLocation()
-    console.log(location, 'location')
-    const currentSearch = location.search
-    const [search, setSearch] = useState(null)
+    const queryRoute = useQuery()
+    const search = queryRoute.get('q') || null
 
     // deal with memory leaks
     const [cancelled, setCancelled] = useState(false)
@@ -22,7 +19,6 @@ export const useFetchDocuments = (docCollection: string, uid = null) => {
             if (cancelled) return
 
             setLoading(true)
-            setSearch(currentSearch)
 
             const collectionRef = await collection(db, docCollection)
 
@@ -42,15 +38,13 @@ export const useFetchDocuments = (docCollection: string, uid = null) => {
                     setDocuments(querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
                 })
             } catch (error) {
-                console.log(error.message)
                 setError(error.message)
             }
             setLoading(false)
         }
 
         loadData()
-        console.log()
-    }, [docCollection, search, uid, cancelled, currentSearch])
+    }, [docCollection, search, uid, cancelled])
 
     useEffect(() => setCancelled(true), [])
 

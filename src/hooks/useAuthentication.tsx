@@ -38,7 +38,6 @@ export const useAuthentication = () => {
                 displayName: data.displayName
             })
         } catch (error) {
-            console.log(error.message)
             setError(error.message)
         }
 

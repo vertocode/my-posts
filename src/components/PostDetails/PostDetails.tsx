@@ -4,6 +4,8 @@ import Chip from '@mui/material/Chip'
 const PostComponent = ({ post }) => {
     const { title, content, createdBy, createdAt, image, tags } = post
 
+    console.log('content: ', content)
+
     const formatCreatedAt = () => {
         const date = new Date(createdAt.seconds * 1000)
         return date.toLocaleString()

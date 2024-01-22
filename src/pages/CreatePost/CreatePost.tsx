@@ -1,5 +1,5 @@
 import './CreatePost.scss'
-import { ReactElement, useState, useEffect } from 'react'
+import { ReactElement, useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthValue } from '../../context/AuthContext'
 import { useInsertDocument } from '../../hooks/useInsertDocument'
@@ -61,7 +61,7 @@ const CreatePost = (): ReactElement => {
         postContent.focus()
     }
 
-    const handleEdit = (htmlTag) => {
+    const handleEdit = useCallback((htmlTag) => {
         const postContent = document.querySelector('.post-content')
         const selectedText = window.getSelection().toString()
         const [elementWithText] = Array.from(document.querySelectorAll('.post-content *')).filter(element => element.innerText.includes(selectedText))
@@ -91,14 +91,14 @@ const CreatePost = (): ReactElement => {
             })()
             postContent.innerHTML = postContent.innerHTML += `<${htmlTag} style="color: ${customColor}">${text}</${htmlTag}>`
         }
-    }
+    }, [customColor])
 
     useEffect(() => {
         if (tagHtml) {
             handleEdit(tagHtml)
             setTagHtml('')
         }
-    }, [tagHtml])
+    }, [handleEdit, tagHtml])
 
     useEffect(() => {
         const selectedText = window.getSelection().toString()

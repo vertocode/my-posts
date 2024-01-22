@@ -25,9 +25,7 @@ const Login = (): ReactElement => {
         e.preventDefault()
 
         const response = await signIn({ email, password })
-        console.log('response: ', response)
 
-        console.log(authError, error)
         if (!authError && response) {
             navigate('/')
         }
