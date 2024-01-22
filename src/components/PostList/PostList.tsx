@@ -67,10 +67,8 @@ const PostList = ({ userId = null }): ReactElement => {
                         </Link>
                     </div>
                 )}
-                {posts && posts.map((post) => (
-                    <Link style={{ width: '80%' }} to={ `/posts/${post.id}` } key={ post.id }>
-                        <PostDetails key={ post.id } post={ post } />
-                    </Link>
+                {posts && posts.map((post, index) => (
+                    <PostDetails key={ `post-${index}-${post.uid}` } post={ post } />
                 ))}
             </main>
         </div>

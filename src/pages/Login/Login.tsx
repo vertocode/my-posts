@@ -42,8 +42,9 @@ const Login = (): ReactElement => {
                 <img src={ LoginImage } alt="login-image"/>
 
                 <form onSubmit={ handleSubmit }>
-                    <TextField type="email" label="Email" variant="standard" onChange={ (e) => setEmail(e.target.value) }/>
+                    <TextField value={ email } type="email" label="Email" variant="standard" onChange={ (e) => setEmail(e.target.value) }/>
                     <TextField
+                        value={ password }
                         InputProps={{
                             endAdornment: (
                                 <IconButton

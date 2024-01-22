@@ -1,12 +1,27 @@
 import './PostDetails.scss'
 import Chip from '@mui/material/Chip'
+import Button from '@mui/material/Button'
+import { useAuthValue } from '../../hooks/useAuthValue'
+import { useNavigate } from 'react-router-dom'
 
 const PostComponent = ({ post }) => {
-    const { title, content, createdBy, createdAt, image, tags } = post
+    const { title, createdBy, createdAt, image, tags } = post
+    const { user } = useAuthValue()
+    const navigate = useNavigate()
+
+    const isCreator = post.createdBy === user?.displayName
 
     const formatCreatedAt = () => {
         const date = new Date(createdAt.seconds * 1000)
         return date.toLocaleString()
+    }
+
+    const editPost = e => {
+        console.log('editing post')
+    }
+
+    const deletePost = e => {
+        console.log('deletando post')
     }
 
     return (
@@ -49,6 +64,17 @@ const PostComponent = ({ post }) => {
                     <h1 style={{ textAlign: 'center' }} className="post-title">{ title }</h1>
                 )
             }
+
+                <div className="action-buttons">
+                    <Button onClick={ () => navigate(`/posts/${post.id}`) } variant="contained">View</Button>
+                    { isCreator && (
+                        <>
+                            <Button onClick={ editPost } variant="contained" color="success">Edit</Button>
+                            <Button onClick={ deletePost } variant="contained" color="error">Delete</Button>
+                        </>
+                    )}
+                </div>
+
 
             {/*<p className="post-content" dangerouslySetInnerHTML={{ __html: content }} />*/}
         </div>

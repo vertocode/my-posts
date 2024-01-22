@@ -3,7 +3,7 @@
   margin: 0 auto;
   padding: 20px;
   width: 90%;
-  border: .1em solid black;
+  border: .1em solid rgba(0, 0, 0, 0.22);
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background: #F5F5F5;
@@ -36,9 +36,11 @@
       flex-wrap: wrap;
     }
   }
-}
 
-.PostDetails:hover {
-  transform: scale(1.02);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    gap: 1em;
+  }
 }
