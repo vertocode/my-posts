@@ -29,6 +29,7 @@ const PostComponent = ({ post }) => {
                 <div style={{
                     textAlign: 'center',
                     height: '200px',
+                    backgroundPosition: 'center',
                     backgroundImage: `url(${image})`,
                     display: 'flex',
                     objectFit: 'contain',
