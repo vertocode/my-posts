@@ -41,14 +41,13 @@ const PostList = (): ReactElement => {
                         type="text"
                         onChange={ (e) => setSearch(e.target.value) }
                     />
-                    <FormHelperText style={{ color: 'white' }} variant="outlined">Search by title, content, tags, etc.</FormHelperText>
+                    <FormHelperText variant="outlined">Search by title, content, tags, etc.</FormHelperText>
                 </div>
 
 
                 {!loading && <Button size="small" type="submit" variant="contained">Search</Button>}
                 {loading && <LoadingButton size="small" loading type="submit" variant="contained">Loading...</LoadingButton>}
             </form>
-            { search }
             <main key={`list-with-search-${search}`}>
                 { loading && <p>Loading...</p> }
                 {posts.length === 0 && isSearchRoute && !loading && (

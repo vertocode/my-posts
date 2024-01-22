@@ -14,7 +14,7 @@ $scrollbar-color: gray;
 }
 
 body {
-  background: linear-gradient(45deg, #444848, #15223b);
+  background: linear-gradient(45deg, #ecf0f1, white);
   scrollbar-color: $scrollbar-color #282c34;
   scrollbar-width: thin;
   margin: 0;
@@ -36,7 +36,6 @@ a, nav button {
   text-decoration: none;
   background-color: transparent;
   border: none;
-  color: black;
   transition: .4s;
   font-size: 1em;
   cursor: pointer;

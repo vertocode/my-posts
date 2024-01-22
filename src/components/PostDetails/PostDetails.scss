@@ -1,62 +1,44 @@
 .PostDetails {
   cursor: pointer;
   margin: 0 auto;
-  padding: 10px;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: transparent;
+  padding: 20px; /* Increased padding for better spacing */
+  width: 90%;
+  border: .1em solid black;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: #282C34;
 
   .post-title {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-
-  .post-content {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
-    font-size: 16px;
-    line-height: 1.6;
-    margin-bottom: 20px;
-
-    h1,
-    h2 {
-      color: white;
-    }
-
-    p {
-      margin-bottom: 10px;
-    }
+    font-size: 28px; /* Increased font size for the title */
+    margin-bottom: 15px; /* Slightly increased margin for better spacing */
   }
 
   .post-meta {
-    font-size: 14px;
-    color: #777;
+    font-size: 1.2em;
+    color: #aaa;
 
     .post-author {
-      margin-right: 20px;
+      margin-right: 25px;
     }
-  }
-
-  img {
-    margin: 20px auto;
-    height: 200px;
   }
 
   header {
     display: flex;
     justify-content: space-between;
+    gap: 1em;
     align-items: center;
 
     .tags {
+      overflow: hidden;
       display: flex;
-      align-items: flex-start;
-      gap: 10px;
+      align-items: center;
+      gap: 15px;
       flex-wrap: wrap;
-
     }
   }
+}
+
+.PostDetails:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }

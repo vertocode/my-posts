@@ -25,10 +25,6 @@ $light-shadow: rgba(0, 0, 0, 0.1);
     text-align: center;
   }
 
-  input {
-    color: white;
-  }
-
   &.light {
     background-color: $light-background;
     color: $light-text;

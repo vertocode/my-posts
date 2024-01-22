@@ -12,19 +12,6 @@
     width: 70%;
   }
 
-  input {
-    color: white;
-  }
-
-  label {
-    color: white;
-  }
-
-  textarea {
-    background-color: white;
-    color: black;
-  }
-
   .tags {
     .input-container {
       display: flex;
@@ -46,10 +33,8 @@
 
   .create-post {
     .post-content {
-      border-radius: 10px;
       margin: 0;
       padding: 1em;
-      width: 100%;
       background-color: white;
 
       p {
@@ -59,12 +44,10 @@
     .editor {
       display:flex;
       justify-content: space-between;
-      color: white;
       width: 100%;
 
       .chips {
         flex-wrap: wrap;
-        border-radius: 5px;
         background-color: white;
         display: flex;
         justify-content: center;

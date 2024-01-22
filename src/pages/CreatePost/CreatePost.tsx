@@ -135,7 +135,6 @@ const CreatePost = (): ReactElement => {
                 />
 
                 <div className="create-post">
-                    <p>If you add any code in html, the result in the posts will follow your code. (warn: if you add a wrong code, it can break your content.)</p>
                     <blockquote className="post-content" contentEditable="true" suppressContentEditableWarning={true}>
                         <h1>MyPosts</h1>
                         <p>You can edit and style this content.</p>
