@@ -43,7 +43,7 @@ const Navbar = (): ReactElement => {
                 {user && (
                     <>
                         <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/posts/create">New Post</NavLink></li>
-                        <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/dashboard">Dashboard</NavLink></li>
+                        <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/profile">Profile</NavLink></li>
                         <li onClick={ logout }>
                             <Button variant="contained" color="info">Logout</Button>
                         </li>

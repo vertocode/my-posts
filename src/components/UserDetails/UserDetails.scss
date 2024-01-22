@@ -1,0 +1,83 @@
+.UserDetails {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 70%;
+  max-width: 600px;
+  margin: 20px auto;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    gap: 1em;
+  }
+
+  h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+  }
+
+  .user-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2em;
+
+    .profile-pic  {
+      position:relative;
+      display: flex;
+      flex-direction: column;
+      .MuiFormControl-root {
+        width: 100px;
+      }
+      i {
+        position: absolute;
+        bottom: 0;
+        right: 10px;
+        padding: 7px;
+        border-radius: 50%;
+        background-color: #F5F5F5;
+      }
+      img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+
+    .info {
+      font-size: 16px;
+
+      p {
+        overflow: hidden;
+        margin-bottom: 10px;
+
+        i {
+          cursor: pointer;
+          margin-left: .2em;
+        }
+
+        i:hover {
+          color: #3498db;
+        }
+
+        .MuiFormControl-root {
+          margin-left: .4em;
+          input {
+            box-sizing: border-box;
+          }
+        }
+      }
+
+      strong {
+        color: #3498db;
+      }
+    }
+  }
+}

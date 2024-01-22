@@ -9,7 +9,7 @@ import PostList from './pages/PostList/PostList'
 import About from './pages/About/About'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
-import Dashboard from './pages/Dashboard/Dashboard'
+import Profile from './pages/Profile/Profile.tsx'
 import CreatePost from './pages/CreatePost/CreatePost'
 import Post from './pages/Post/Post'
 
@@ -57,7 +57,7 @@ function App() {
                         <Route path="/login" element={ !user ? <Login /> : <Navigate to="/" /> }/>
                         <Route path="/register" element={ !user ? <Register /> : <Navigate to="/" /> }/>
                         <Route path="/posts/create" element={ user ? <CreatePost /> : <Navigate to="/" /> }/>
-                        <Route path="/dashboard" element={ user ? <Dashboard /> : <Navigate to="/" /> }/>
+                        <Route path="/profile" element={ user ? <Profile /> : <Navigate to="/" /> }/>
                     </Routes>
                 </div>
                 <Footer />
