@@ -20,7 +20,7 @@ const PostComponent = ({ post }) => {
                 { tags?.length > 0 && (
                     <p className="tags">
                         { tags.map((tag, index) => (
-                            <Chip style={{color: 'white'}} variant="outlined" key={ index } className="post-tag" label={`#${tag}`}></Chip>
+                            <Chip style={{color: '#AAAAAA'}} variant="outlined" key={ index } className="post-tag" label={`#${tag}`}></Chip>
                         ))}
                     </p>
                 )}
@@ -39,7 +39,7 @@ const PostComponent = ({ post }) => {
                 }}>
                     <h1 style={{
                         textAlign: 'center',
-                        backgroundColor: 'white',
+                        backgroundColor: '#282C34',
                         width: '100%',
                     }} className="post-title">{ title }</h1>
                 </div>

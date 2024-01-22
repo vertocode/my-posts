@@ -13,7 +13,6 @@ const PostList = (): ReactElement => {
     const navigate = useNavigate()
     const location = useLocation()
     const isSearchRoute = location.pathname.includes('search')
-    console.log('isSearchRoute', isSearchRoute)
     const { documents: fetchedPosts, loading, search: fetchSearch } = useFetchDocuments('posts')
     const [search, setSearch] = useState(fetchSearch || '')
 
@@ -61,7 +60,7 @@ const PostList = (): ReactElement => {
                 )}
                 {posts.length === 0 && !isSearchRoute && !loading && (
                     <div className="noposts">
-                        <h2 style={{ color: 'white' }}>No posts found</h2>
+                        <h2>No posts found</h2>
                         <p>Try create a new post.</p>
                         <Link to="/posts/create">
                             <Button variant="contained" color="success">Create Post</Button>

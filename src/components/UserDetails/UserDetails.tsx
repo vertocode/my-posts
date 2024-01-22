@@ -8,10 +8,10 @@ import TextField from "@mui/material/TextField";
 const UserDetails = ({ user }): ReactElement => {
     const [name, setName] = useState(user.displayName)
     const [email, setEmail] = useState(user.email)
-    const [photoURL, setPhotoURL] = useState(user?.photoURL || '')
+    const [photoURL, setPhotoURL] = useState(user?.photoURL)
     const [isEditingName, setIsEditingName] = useState(false)
     const [isEditingEmail, setIsEditingEmail] = useState(false)
-    const [isEditintPhotoURL, setIsEditingPhotoURL] = useState(false)
+    const [isEditingPhotoURL, setIsEditingPhotoURL] = useState(false)
 
     const hasChanged = () => {
         return name !== user.displayName || email !== user.email || photoURL !== user.photoURL
@@ -33,8 +33,8 @@ const UserDetails = ({ user }): ReactElement => {
             <div className="user-info">
                 <div className="profile-pic">
                     <img src={photoURL || UserPNG} alt="User's profile picture" />
-                    {!isEditintPhotoURL && <i className="fa fa-edit" onClick={ () => setIsEditingPhotoURL(true) }></i>}
-                    {isEditintPhotoURL && (
+                    {!isEditingPhotoURL && <i className="fa fa-edit" onClick={ () => setIsEditingPhotoURL(true) }></i>}
+                    {isEditingPhotoURL && (
                         <TextField
                             onChange={(e) => setPhotoURL(e.target.value)}
                             label="Photo URL"

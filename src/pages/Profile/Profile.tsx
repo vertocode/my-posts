@@ -6,14 +6,13 @@ import { Link } from 'react-router-dom'
 import UserDetails from '../../components/UserDetails/UserDetails'
 
 // hooks
-import { useState } from 'react'
 import { useAuthValue } from '../../hooks/useAuthValue'
 import { useFetchDocuments } from '../../hooks/useFetchDocuments'
 
 const Profile = (): ReactElement => {
-    const [posts, setPosts] = useState([])
     const { user } = useAuthValue()
     const { uid: userId } = user || {}
+    const { documents: posts, loading, error } = useFetchDocuments('posts', userId)
 
     return (
         <div className="Profile">
@@ -22,12 +21,15 @@ const Profile = (): ReactElement => {
 
             {posts && posts.length === 0 && (
                 <div className="noposts">
-                    <h3>No posts found</h3>
-                    <Link to="posts/create">
+                    <h3>No posts created by you</h3>
+                    <Link to="/posts/create">
                         <Button variant="contained">New Post</Button>
                     </Link>
                 </div>
             )}
+            {posts && posts.map((post) => (
+                <h3>{post.title}</h3>
+            ))}
 
         </div>
     )

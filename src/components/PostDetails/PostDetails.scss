@@ -1,16 +1,16 @@
 .PostDetails {
   cursor: pointer;
   margin: 0 auto;
-  padding: 20px; /* Increased padding for better spacing */
+  padding: 20px;
   width: 90%;
   border: .1em solid black;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background: #282C34;
+  background: #F5F5F5;
 
   .post-title {
-    font-size: 28px; /* Increased font size for the title */
-    margin-bottom: 15px; /* Slightly increased margin for better spacing */
+    font-size: 28px;
+    margin-bottom: 15px;
   }
 
   .post-meta {
