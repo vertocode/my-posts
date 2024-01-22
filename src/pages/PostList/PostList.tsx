@@ -12,8 +12,8 @@ const PostList = (): ReactElement => {
     const [posts, setPosts] = useState([])
     const navigate = useNavigate()
     const location = useLocation()
-    const isSearching = location.pathname
-    console.log('isSearching',isSearching)
+    const isSearchRoute = location.pathname.includes('search')
+    console.log('isSearchRoute', isSearchRoute)
     const { documents: fetchedPosts, loading, search: fetchSearch } = useFetchDocuments('posts')
     const [search, setSearch] = useState(fetchSearch || '')
 
@@ -26,7 +26,10 @@ const PostList = (): ReactElement => {
         }
     }
 
-    useEffect(() => setPosts(fetchedPosts || []), [fetchedPosts, search])
+    useEffect(() => {
+        console.log('executou aqui', fetchedPosts)
+        setPosts(fetchedPosts || [])
+    }, [fetchedPosts, location])
 
     return (
         <div className="PostList">
@@ -45,12 +48,22 @@ const PostList = (): ReactElement => {
                 {!loading && <Button size="small" type="submit" variant="contained">Search</Button>}
                 {loading && <LoadingButton size="small" loading type="submit" variant="contained">Loading...</LoadingButton>}
             </form>
-            <main>
+            { search }
+            <main key={`list-with-search-${search}`}>
                 { loading && <p>Loading...</p> }
-                {posts.length === 0 && !loading && (
+                {posts.length === 0 && isSearchRoute && !loading && (
+                    <div className="noposts">
+                        <h2 style={{ color: 'white' }}>No posts found according to your search</h2>
+                        <p>Try searching for something else, or clear this search criteria.</p>
+                        <Link to="/">
+                            <Button variant="contained" color="success">Clear Filter</Button>
+                        </Link>
+                    </div>
+                )}
+                {posts.length === 0 && !isSearchRoute && !loading && (
                     <div className="noposts">
                         <h2 style={{ color: 'white' }}>No posts found</h2>
-                        <p>Try searching for something else, or create a new post.</p>
+                        <p>Try create a new post.</p>
                         <Link to="/posts/create">
                             <Button variant="contained" color="success">Create Post</Button>
                         </Link>

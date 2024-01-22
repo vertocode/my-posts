@@ -49,8 +49,8 @@ function App() {
                 <Navbar />
                 <div className="container">
                     <Routes>
-                        <Route path="/" element={ <PostList /> }/>
-                        <Route path="/search" element={ <PostList /> }/>
+                        <Route path="/" element={ <PostList key="postList" /> }/>
+                        <Route path="/search" element={ <PostList key="postListSearch" /> }/>
                         <Route path="/about" element={ <About /> }/>
                         <Route path="/login" element={ !user ? <Login /> : <Navigate to="/" /> }/>
                         <Route path="/register" element={ !user ? <Register /> : <Navigate to="/" /> }/>

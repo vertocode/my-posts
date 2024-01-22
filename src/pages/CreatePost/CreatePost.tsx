@@ -1,7 +1,7 @@
 import './CreatePost.scss'
 import { ReactElement, useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAuthValue } from '../../context/AuthContext'
+import { useAuthValue } from '../../hooks/useAuthValue'
 import { useInsertDocument } from '../../hooks/useInsertDocument'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'

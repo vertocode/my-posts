@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import './Navbar.scss'
 import { ReactElement } from 'react'
 import { useAuthentication } from '../../hooks/useAuthentication'
-import { useAuthValue } from '../../context/AuthContext'
+import { useAuthValue } from '../../hooks/useAuthValue'
 import Button from '@mui/material/Button'
 
 const Navbar = (): ReactElement => {

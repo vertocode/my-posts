@@ -4,7 +4,7 @@ import { ReactElement } from 'react';
 import ProfileImg from '../../assets/images/profile.jpeg';
 import Button from '@mui/material/Button'
 import { useNavigate } from 'react-router-dom';
-import { useAuthValue } from '../../context/AuthContext'
+import { useAuthValue } from '../../hooks/useAuthValue'
 
 const About = (): ReactElement => {
     const navigate = useNavigate()
