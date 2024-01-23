@@ -14,7 +14,7 @@ const PostComponent = ({ post }) => {
     const navigate = useNavigate()
     const deleteDocument = useDeleteDocument('posts', post.id)
 
-    const isCreator = post.createdBy === user?.displayName
+    const isCreator = post.uid === user?.uid
     const isAdmin = user?.email === 'vertocode@gmail.com'
     const canEditAndDelete = isCreator || isAdmin
 

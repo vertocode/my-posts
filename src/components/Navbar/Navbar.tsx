@@ -45,8 +45,8 @@ const Navbar = (): ReactElement => {
                 )}
                 {userVerifiedEmail && (
                     <>
-                        <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/posts/create">New Post</NavLink></li>
-                        <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/profile">Profile</NavLink></li>
+                        <li onClick={isMenuOpen ? toggleMenu : undefined}><NavLink to="/posts/create">New Post</NavLink></li>
+                        <li onClick={isMenuOpen ? toggleMenu : undefined}><NavLink to="/profile">Profile</NavLink></li>
                         <li onClick={ async () => {
                             await logout({ resetErrors: true })
                             navigate('/login')
