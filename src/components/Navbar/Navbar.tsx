@@ -5,9 +5,12 @@ import { ReactElement } from 'react'
 import { useAuthentication } from '../../hooks/useAuthentication'
 import { useAuthValue } from '../../hooks/useAuthValue'
 import Button from '@mui/material/Button'
+import { useNavigate } from 'react-router-dom'
 
 const Navbar = (): ReactElement => {
     const { user } = useAuthValue()
+    const navigate = useNavigate()
+    const userVerifiedEmail = user?.emailVerified
     const { logout, error } = useAuthentication()
     const [isMenuOpen, setMenuOpen] = useState(false)
 
@@ -28,7 +31,7 @@ const Navbar = (): ReactElement => {
             <ul className={`Navbar-links${isMenuOpen ? ' open' : ''}`}>
                 <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/">Home</NavLink></li>
                 <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/about">About</NavLink></li>
-                {!user && (
+                {!userVerifiedEmail && (
                     <>
                         <li style={{ display: 'flex', gap: '1em' }} onClick={isMenuOpen ? toggleMenu : null}>
                             <NavLink to="/login">
@@ -40,11 +43,14 @@ const Navbar = (): ReactElement => {
                         </li>
                     </>
                 )}
-                {user && (
+                {userVerifiedEmail && (
                     <>
                         <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/posts/create">New Post</NavLink></li>
                         <li onClick={isMenuOpen ? toggleMenu : null}><NavLink to="/profile">Profile</NavLink></li>
-                        <li onClick={ logout }>
+                        <li onClick={ async () => {
+                            await logout()
+                            navigate('/login')
+                        } }>
                             <Button variant="contained" color="info">Logout</Button>
                         </li>
                     </>

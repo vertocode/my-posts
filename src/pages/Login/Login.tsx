@@ -6,8 +6,7 @@ import Button from '@mui/material/Button'
 import LoadingButton from '@mui/lab/LoadingButton'
 import TextField from '@mui/material/TextField'
 import {Link} from "react-router-dom";
-import {useAuthentication} from "../../hooks/useAuthentication.tsx";
-import {useNavigate} from "react-router-dom";
+import {useAuthentication} from '../../hooks/useAuthentication'
 import {IconButton} from "@mui/material";
 
 const Login = (): ReactElement => {
@@ -16,21 +15,18 @@ const Login = (): ReactElement => {
     const [error, setError] = useState()
     const [showPassword, setShowPassword] = useState(false)
 
-    const { signIn, error: authError, loading } = useAuthentication()
-    const navigate = useNavigate()
+    const { signIn, error: authError, loading, message } = useAuthentication()
 
+    console.log(authError, '<<<')
     useEffect(() => {
+        console.log(authError)
         setError(authError)
     }, [authError])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const response = await signIn({ email, password })
-
-        if (!authError && response) {
-            navigate('/')
-        }
+        await signIn({ email, password })
     }
 
     return (
@@ -67,6 +63,7 @@ const Login = (): ReactElement => {
                     <p>Do not have account yet? <Link style={{ color: '#1466C1' }} to="/register">Click here to create!</Link> </p>
                 </form>
             </main>
+            {message && <p className="message">{message}</p>}
             {error && <p className="error">{error}</p>}
         </BaseCard>
     )

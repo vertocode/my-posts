@@ -5,14 +5,17 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     updateProfile,
-    signOut
+    signOut,
+    sendEmailVerification
 } from 'firebase/auth'
 
 import { useState, useEffect } from 'react'
 
 export const useAuthentication = () => {
-    const [error, setError] = useState(null)
+    const [error, setError] = useState('')
+    const [message, setMessage] = useState(window.localStorage.getItem('message'))
     const [loading, setLoading] = useState(null)
+    const [hasEmailSent] = useState(false)
 
     // deal with memory leaks
     const [cancelled, setCancelled] = useState(false)
@@ -37,6 +40,9 @@ export const useAuthentication = () => {
             await updateProfile(user, {
                 displayName: data.displayName
             })
+            await sendEmailVerification(auth.currentUser)
+            window.localStorage.setItem('message', 'Account created successfully! You must verify your email before logging in. Check your inbox for a verification link.')
+            await signOut(auth)
         } catch (error) {
             setError(error.message)
         }
@@ -50,10 +56,18 @@ export const useAuthentication = () => {
 
         setError('')
         setLoading(true)
+        setMessage('')
 
         let response
         try {
             response = await signInWithEmailAndPassword(auth, data.email, data.password)
+            console.log(response.user)
+            if (!response.user.emailVerified) {
+                console.log('not verified')
+                setError('Your account is inactive. Check your inbox for a verification link, and activate it.')
+                console.log(error)
+                await logout({ resetErrors: false })
+            }
         } catch (error) {
             let errorMessage
             if (error.message.includes('invalid-credential')) {
@@ -66,10 +80,13 @@ export const useAuthentication = () => {
         return response
     }
 
-    const logout = async () => {
+    const logout = async ({ resetErrors = true }) => {
         checkIfIsCancelled()
 
-        setError('')
+        if (resetErrors) {
+            setError('')
+        }
+
         setLoading(true)
 
         try {
@@ -87,6 +104,8 @@ export const useAuthentication = () => {
 
     return {
         auth,
+        message,
+        hasEmailSent,
         createUser,
         signIn,
         logout,

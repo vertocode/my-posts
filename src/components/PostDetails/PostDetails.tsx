@@ -12,7 +12,6 @@ const PostComponent = ({ post }) => {
     const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] = useState(false)
     const { user } = useAuthValue()
     const navigate = useNavigate()
-    console.log('post in postDetails', post)
     const deleteDocument = useDeleteDocument('posts', post.id)
 
     const isCreator = post.createdBy === user?.displayName

@@ -33,6 +33,7 @@ function App() {
   const { auth } = useAuthentication()
 
   const loadingUser = user === undefined
+  const userVerifiedEmail = user?.emailVerified
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
@@ -55,11 +56,11 @@ function App() {
                         <Route path="/search" element={ <Home key="postListSearch" /> }/>
                         <Route path="/posts/:id" element={ <Post /> }/>
                         <Route path="/about" element={ <About /> }/>
-                        <Route path="/login" element={ !user ? <Login /> : <Navigate to="/" /> }/>
-                        <Route path="/register" element={ !user ? <Register /> : <Navigate to="/" /> }/>
-                        <Route path="/posts/create" element={ user ? <CreatePost /> : <Navigate to="/" /> }/>
-                        <Route path="/posts/edit/:id" element={ user ? <EditPost /> : <Navigate to="/" /> }/>
-                        <Route path="/profile" element={ user ? <Profile /> : <Navigate to="/" /> }/>
+                        <Route path="/login" element={ !userVerifiedEmail ? <Login /> : <Navigate to="/" /> }/>
+                        <Route path="/register" element={ !userVerifiedEmail ? <Register /> : <Navigate to="/" /> }/>
+                        <Route path="/posts/create" element={ userVerifiedEmail ? <CreatePost /> : <Navigate to="/" /> }/>
+                        <Route path="/posts/edit/:id" element={ userVerifiedEmail ? <EditPost /> : <Navigate to="/" /> }/>
+                        <Route path="/profile" element={ userVerifiedEmail ? <Profile /> : <Navigate to="/" /> }/>
                     </Routes>
                 </div>
                 <Footer />
