@@ -12,6 +12,7 @@ import Register from './pages/Register/Register'
 import Profile from './pages/Profile/Profile.tsx'
 import CreatePost from './pages/CreatePost/CreatePost'
 import Post from './pages/Post/Post'
+import EditPost from "./pages/EditPost/EditPost.tsx"
 
 // components
 import Navbar from './components/Navbar/Navbar'
@@ -57,6 +58,7 @@ function App() {
                         <Route path="/login" element={ !user ? <Login /> : <Navigate to="/" /> }/>
                         <Route path="/register" element={ !user ? <Register /> : <Navigate to="/" /> }/>
                         <Route path="/posts/create" element={ user ? <CreatePost /> : <Navigate to="/" /> }/>
+                        <Route path="/posts/edit/:id" element={ user ? <EditPost /> : <Navigate to="/" /> }/>
                         <Route path="/profile" element={ user ? <Profile /> : <Navigate to="/" /> }/>
                     </Routes>
                 </div>
