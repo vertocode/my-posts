@@ -68,7 +68,7 @@ const Login = (): ReactElement => {
                     <p className="message">{message} Didn't find it? <a href="">Click here to resend.</a></p>
                 </>
             )}
-            {error && <p className="error">{error}</p>}
+            {error && <p className="error" dangerouslySetInnerHTML={{ __html: error }}></p>}
         </BaseCard>
     )
 }

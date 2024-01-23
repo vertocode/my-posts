@@ -64,7 +64,7 @@ export const useAuthentication = () => {
             console.log(response.user)
             if (!response.user.emailVerified) {
                 console.log('not verified')
-                setError('Your account is inactive. Check your inbox for a verification link, and activate it.')
+                setError('Your account is inactive. Check your inbox for a verification link, and activate it. Didn\'t find it? <a href="">Click here to resend.</a>')
                 console.log(error)
                 await logout({ resetErrors: false })
             }
