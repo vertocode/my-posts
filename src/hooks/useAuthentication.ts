@@ -105,7 +105,7 @@ export const useAuthentication = () => {
         return response
     }
 
-    const logout = async ({ resetErrors = true }) => {
+    const logout = async ({ resetErrors }: { resetErrors: boolean }) => {
         checkIfIsCancelled()
 
         if (resetErrors) {
