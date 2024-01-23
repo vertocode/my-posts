@@ -44,12 +44,15 @@ const Register = (): ReactElement => {
             return
         }
 
-        await createUser(user)
+        const response = await createUser(user)
+        console.log(response)
 
-        if (!authErrors) {
+        console.log('authErrors', authErrors)
+        console.log('error', error)
+        if (response?.user?.uid) {
             navigate('/login')
         } else {
-            setError(authErrors)
+            setError(authErrors || 'internal server error. please try again later')
         }
     }
 

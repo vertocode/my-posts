@@ -12,14 +12,12 @@ import {IconButton} from "@mui/material";
 const Login = (): ReactElement => {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-    const [error, setError] = useState()
+    const [error, setError] = useState('')
     const [showPassword, setShowPassword] = useState(false)
 
-    const { signIn, error: authError, loading, message } = useAuthentication()
+    const { signIn, error: authError, loading, message, resendEmailVerification } = useAuthentication()
 
-    console.log(authError, '<<<')
     useEffect(() => {
-        console.log(authError)
         setError(authError)
     }, [authError])
 
@@ -27,6 +25,10 @@ const Login = (): ReactElement => {
         e.preventDefault()
 
         await signIn({ email, password })
+    }
+
+    const resend = async () => {
+        await resendEmailVerification({ email, password })
     }
 
     return (
@@ -65,10 +67,20 @@ const Login = (): ReactElement => {
             </main>
             {message && (
                 <>
-                    <p className="message">{message} Didn't find it? <a href="">Click here to resend.</a></p>
+                    <p className="message">{message.replace(' to "undefined"', '')} { message.includes('verification link') && !message.includes('undefined') ? (
+                        <a className="resend" onClick={ resend }>Click here to resend</a>
+                    ) : null}
+                    </p>
                 </>
             )}
-            {error && <p className="error" dangerouslySetInnerHTML={{ __html: error }}></p>}
+            {error && (
+                <>
+                    <p className="error">{error.replace(' to "undefined"', '')} { message.includes('verification link') && !message.includes('undefined') ? (
+                        <a className="resend" onClick={ resend }>Click here to resend</a>
+                    ) : null}
+                    </p>
+                </>
+            )}
         </BaseCard>
     )
 }
