@@ -63,7 +63,11 @@ const Login = (): ReactElement => {
                     <p>Do not have account yet? <Link style={{ color: '#1466C1' }} to="/register">Click here to create!</Link> </p>
                 </form>
             </main>
-            {message && <p className="message">{message}</p>}
+            {message && (
+                <>
+                    <p className="message">{message} Didn't find it? <a href="">Click here to resend.</a></p>
+                </>
+            )}
             {error && <p className="error">{error}</p>}
         </BaseCard>
     )
