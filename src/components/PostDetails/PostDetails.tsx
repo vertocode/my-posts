@@ -4,9 +4,12 @@ import Button from '@mui/material/Button'
 import { useAuthValue } from '../../hooks/useAuthValue'
 import { useNavigate } from 'react-router-dom'
 import { useDeleteDocument } from '../../hooks/useDeleteDocument'
+import ConfirmDeleteModal from "../Modal/ConfirmDeleteModal.tsx";
+import {useState} from "react";
 
 const PostComponent = ({ post }) => {
     const { title, createdBy, createdAt, image, tags } = post
+    const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] = useState(false)
     const { user } = useAuthValue()
     const navigate = useNavigate()
     const deleteDocument = useDeleteDocument('posts', post.id)
@@ -18,10 +21,6 @@ const PostComponent = ({ post }) => {
     const formatCreatedAt = () => {
         const date = new Date(createdAt.seconds * 1000)
         return date.toLocaleString()
-    }
-
-    const deletePost = (e: Event) => {
-        console.log('deletando post', e)
     }
 
     return (
@@ -80,7 +79,12 @@ const PostComponent = ({ post }) => {
                     { canEditAndDelete && (
                         <>
                             <Button onClick={ () => navigate(`/posts/edit/${post.id}`) } variant="contained" color="success">Edit</Button>
-                            <Button onClick={ deleteDocument.deleteDocument } variant="contained" color="error">Delete</Button>
+                            <Button onClick={ () => setShowDeleteConfirmationModal(true) } variant="contained" color="error">Delete</Button>
+                            <ConfirmDeleteModal
+                                onClose={ () => setShowDeleteConfirmationModal(false) }
+                                isOpen={ showDeleteConfirmationModal }
+                                onConfirm={ deleteDocument.deleteDocument}
+                            />
                         </>
                     )}
                 </div>

@@ -3,6 +3,14 @@
   margin: 2em;
   padding: 2em;
   border: 1px solid #282C34;
+
+  .action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+    gap: 1em;
+  }
+
   header {
     border: 1px solid #ECEFF1;
     .post-image {

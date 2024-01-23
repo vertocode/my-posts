@@ -10,7 +10,6 @@ export const useDeleteDocument = (docCollection, id) => {
         setLoading(true)
 
         try {
-            console.log('hello world')
             const docRef = await doc(db, docCollection, id)
             await deleteDoc(docRef)
         } catch (error) {
