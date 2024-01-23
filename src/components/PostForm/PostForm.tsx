@@ -140,6 +140,7 @@ const PostForm = ({ post, title, description, id }: PostFormProps): ReactElement
             {description && <p>{ description }</p> }
             <form onSubmit={ handleSubmit }>
                 <TextField
+                    style={{ width: '70%', margin: 'auto' }}
                     required
                     value={ postTitle }
                     type="text"
@@ -147,13 +148,17 @@ const PostForm = ({ post, title, description, id }: PostFormProps): ReactElement
                     variant="standard"
                     onChange={ (e) => setPostTitle(e.target.value) }
                 />
-                <TextField
-                    value={ image }
-                    type="text"
-                    label="Image URL"
-                    variant="standard"
-                    onChange={ (e) => setImage(e.target.value) }
-                />
+                <div className="image-url">
+                    <TextField
+                        value={ image }
+                        type="text"
+                        label="Image URL"
+                        variant="standard"
+                        onChange={ (e) => setImage(e.target.value) }
+                    />
+                    { image && <img src={ image } alt="image URL typed"/> }
+                </div>
+
 
                 <div className="create-post">
                     <blockquote className="post-content" contentEditable="true" suppressContentEditableWarning={true}>

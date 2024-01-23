@@ -31,8 +31,23 @@
     }
   }
 
+  .image-url {
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+
+    .MuiFormControl-root {
+      width: 70%;
+    }
+
+    img  {
+      width: 50px;
+    }
+  }
+
   .create-post {
     .post-content {
+      overflow: scroll;
       margin: 0;
       padding: 1em;
       background-color: white;
