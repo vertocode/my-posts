@@ -3,25 +3,25 @@ import Chip from '@mui/material/Chip'
 import Button from '@mui/material/Button'
 import { useAuthValue } from '../../hooks/useAuthValue'
 import { useNavigate } from 'react-router-dom'
+import { useDeleteDocument } from '../../hooks/useDeleteDocument'
 
 const PostComponent = ({ post }) => {
     const { title, createdBy, createdAt, image, tags } = post
     const { user } = useAuthValue()
     const navigate = useNavigate()
+    const deleteDocument = useDeleteDocument('posts', post.id)
 
     const isCreator = post.createdBy === user?.displayName
+    const isAdmin = user.email === 'vertocode@gmail.com'
+    const canEditAndDelete = isCreator || isAdmin
 
     const formatCreatedAt = () => {
         const date = new Date(createdAt.seconds * 1000)
         return date.toLocaleString()
     }
 
-    const editPost = e => {
-        console.log('editing post')
-    }
-
-    const deletePost = e => {
-        console.log('deletando post')
+    const deletePost = (e: Event) => {
+        console.log('deletando post', e)
     }
 
     return (
@@ -77,10 +77,10 @@ const PostComponent = ({ post }) => {
 
                 <div className="action-buttons">
                     <Button onClick={ () => navigate(`/posts/${post.id}`) } variant="contained">View</Button>
-                    { isCreator && (
+                    { canEditAndDelete && (
                         <>
-                            <Button onClick={ editPost } variant="contained" color="success">Edit</Button>
-                            <Button onClick={ deletePost } variant="contained" color="error">Delete</Button>
+                            <Button onClick={ () => navigate(`/posts/edit/${post.id}`) } variant="contained" color="success">Edit</Button>
+                            <Button onClick={ deleteDocument.deleteDocument } variant="contained" color="error">Delete</Button>
                         </>
                     )}
                 </div>
