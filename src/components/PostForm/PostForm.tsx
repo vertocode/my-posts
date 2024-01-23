@@ -52,6 +52,12 @@ const PostForm = ({ post, title, description, id }: PostFormProps): ReactElement
             return
         }
 
+        const isCreator = user?.uid === post?.uid
+        if (post && !isCreator) {
+            setFormError('You are not allowed to edit this post, only the creator can edit it.')
+            return
+        }
+
         const data = {
             title: postTitle,
             image,
@@ -62,7 +68,6 @@ const PostForm = ({ post, title, description, id }: PostFormProps): ReactElement
         }
 
         if (post) {
-            console.log(post)
             await updateDocument(data, id)
         } else {
             await insertDocument(data)
