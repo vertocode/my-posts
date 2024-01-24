@@ -17,7 +17,7 @@ const Register = (): ReactElement => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState()
-    const [error, setError] = useState()
+    const [error, setError] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
@@ -31,12 +31,22 @@ const Register = (): ReactElement => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        setError('')
-
         const user = {
             displayName,
             email,
             password
+        }
+
+        setError('')
+
+        if (displayName.length < 3) {
+            setError('Name must be at least 3 characters long')
+            return
+        }
+
+        if (displayName.length > 30) {
+            setError('Name must be at most 30 characters long')
+            return
         }
 
         if (password !== confirmPassword) {
