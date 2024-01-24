@@ -89,7 +89,7 @@ export const useAuthentication = () => {
             response = await signInWithEmailAndPassword(auth, data.email, data.password)
             setCurrentUser(response.user)
             if (!response.user.emailVerified) {
-                setError('Your account is inactive. Check your inbox for a verification link, and activate it. Didn\'t find it? <a href="">Click here to resend.</a>')
+                setError('Your account is inactive. Check your inbox for a verification link, and activate it.')
                 await logout({ resetErrors: false })
             }
         } catch (error) {

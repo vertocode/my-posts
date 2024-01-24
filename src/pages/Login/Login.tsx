@@ -68,15 +68,15 @@ const Login = (): ReactElement => {
             {message && (
                 <>
                     <p className="message">{message.replace(' to "undefined"', '')} { message.includes('verification link') && !message.includes('undefined') ? (
-                        <a className="resend" onClick={ resend }>Click here to resend</a>
+                        <span>Didn't find it? <a className="resend" onClick={ resend }> Click here to resend</a></span>
                     ) : null}
                     </p>
                 </>
             )}
             {error && (
                 <>
-                    <p className="error">{error.replace(' to "undefined"', '')} { message.includes('verification link') && !message.includes('undefined') ? (
-                        <a className="resend" onClick={ resend }>Click here to resend</a>
+                    <p className="error">{error.replace(' to "undefined"', '')} { error.includes('verification link') && !error.includes('undefined') ? (
+                        <span>Didn't find it? <a className="resend" onClick={ resend }> Click here to resend</a></span>
                     ) : null}
                     </p>
                 </>
