@@ -3,7 +3,10 @@
 This project is a platform where anyone can create their own blog and share their thoughts with 
 the world. The project was built using React and Firebase. 
 
+[Demo Video](https://www.youtube.com/watch?v=keI4PW1J_2Q)
+
 ![img.png](img.png)
+
 
 ## Features
 
@@ -29,6 +32,9 @@ The project was built using the following technologies:
 - React Router
 - Vite
 - React Hook Form
+- ESLint
+- Vercel
+- Yarn
 
 ## Installation
 
@@ -68,4 +74,3 @@ yarn dev
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
