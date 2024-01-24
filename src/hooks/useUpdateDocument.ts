@@ -1,25 +1,25 @@
 import { useState } from 'react'
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase/config.ts";
+import { doc, updateDoc } from 'firebase/firestore'
+import { db } from '../firebase/config.ts'
 
 export const useUpdateDocument = (docCollection) => {
-    const [error, setError] = useState(null)
-    const [loading, setLoading] = useState(null)
+	const [error, setError] = useState(null)
+	const [loading, setLoading] = useState(null)
 
-    const updateDocument = async (data, id) => {
-        console.log('data', data)
-        console.log('id', id)
-        setLoading(true)
+	const updateDocument = async (data, id) => {
+		console.log('data', data)
+		console.log('id', id)
+		setLoading(true)
 
-        try {
-            const docRef = await doc(db, docCollection, id)
-            await updateDoc(docRef, data)
-        } catch (error) {
-            setError(error.message)
-        }
+		try {
+			const docRef = await doc(db, docCollection, id)
+			await updateDoc(docRef, data)
+		} catch (error) {
+			setError(error.message)
+		}
 
-        setLoading(false)
-    }
+		setLoading(false)
+	}
 
-    return { updateDocument, error, loading }
+	return { updateDocument, error, loading }
 }

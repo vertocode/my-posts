@@ -12,7 +12,7 @@ import Register from './pages/Register/Register'
 import Profile from './pages/Profile/Profile.tsx'
 import CreatePost from './pages/CreatePost/CreatePost'
 import Post from './pages/Post/Post'
-import EditPost from "./pages/EditPost/EditPost.tsx"
+import EditPost from './pages/EditPost/EditPost.tsx'
 
 // components
 import Navbar from './components/Navbar/Navbar'
@@ -29,45 +29,45 @@ import { useState, useEffect } from 'react'
 import { useAuthentication } from './hooks/useAuthentication'
 
 function App() {
-  const [user, setUser] = useState(undefined)
-  const { auth } = useAuthentication()
+	const [user, setUser] = useState(undefined)
+	const { auth } = useAuthentication()
 
-  const loadingUser = user === undefined
-  const userVerifiedEmail = user?.emailVerified
+	const loadingUser = user === undefined
+	const userVerifiedEmail = user?.emailVerified
 
-    useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            setUser(user)
-        })
-    }, [auth])
+	useEffect(() => {
+		onAuthStateChanged(auth, (user) => {
+			setUser(user)
+		})
+	}, [auth])
 
-    if (loadingUser) {
-        return <p style={{ textAlign: 'center' }}>Loading...</p>
-    }
+	if (loadingUser) {
+		return <p style={{ textAlign: 'center' }}>Loading...</p>
+	}
 
-  return (
-    <div className="App">
-        <AuthProvider value={{ user }}>
-            <BrowserRouter>
-                <Navbar />
-                <div className="container">
-                    <Routes>
-                        <Route path="/" element={ <Home key="postList" /> }/>
-                        <Route path="/search" element={ <Home key="postListSearch" /> }/>
-                        <Route path="/posts/:id" element={ <Post /> }/>
-                        <Route path="/about" element={ <About /> }/>
-                        <Route path="/login" element={ !userVerifiedEmail ? <Login /> : <Navigate to="/" /> }/>
-                        <Route path="/register" element={ !userVerifiedEmail ? <Register /> : <Navigate to="/" /> }/>
-                        <Route path="/posts/create" element={ userVerifiedEmail ? <CreatePost /> : <Navigate to="/" /> }/>
-                        <Route path="/posts/edit/:id" element={ userVerifiedEmail ? <EditPost /> : <Navigate to="/" /> }/>
-                        <Route path="/profile" element={ userVerifiedEmail ? <Profile /> : <Navigate to="/" /> }/>
-                    </Routes>
-                </div>
-                <Footer />
-            </BrowserRouter>
-        </AuthProvider>
-    </div>
-  )
+	return (
+		<div className="App">
+			<AuthProvider value={{ user }}>
+				<BrowserRouter>
+					<Navbar />
+					<div className="container">
+						<Routes>
+							<Route path="/" element={ <Home key="postList" /> }/>
+							<Route path="/search" element={ <Home key="postListSearch" /> }/>
+							<Route path="/posts/:id" element={ <Post /> }/>
+							<Route path="/about" element={ <About /> }/>
+							<Route path="/login" element={ !userVerifiedEmail ? <Login /> : <Navigate to="/" /> }/>
+							<Route path="/register" element={ !userVerifiedEmail ? <Register /> : <Navigate to="/" /> }/>
+							<Route path="/posts/create" element={ userVerifiedEmail ? <CreatePost /> : <Navigate to="/" /> }/>
+							<Route path="/posts/edit/:id" element={ userVerifiedEmail ? <EditPost /> : <Navigate to="/" /> }/>
+							<Route path="/profile" element={ userVerifiedEmail ? <Profile /> : <Navigate to="/" /> }/>
+						</Routes>
+					</div>
+					<Footer />
+				</BrowserRouter>
+			</AuthProvider>
+		</div>
+	)
 }
 
 export default App
