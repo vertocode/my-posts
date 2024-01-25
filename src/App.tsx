@@ -60,7 +60,7 @@ function App() {
 							<Route path="/register" element={ !userVerifiedEmail ? <Register /> : <Navigate to="/" /> }/>
 							<Route path="/posts/create" element={ userVerifiedEmail ? <CreatePost /> : <Navigate to="/" /> }/>
 							<Route path="/posts/edit/:id" element={ userVerifiedEmail ? <EditPost /> : <Navigate to="/" /> }/>
-							<Route path="/profile/:id" element={ userVerifiedEmail ? <Profile /> : <Navigate to="/" /> }/>
+							<Route path="/profile/:id" element={ <Profile /> }/>
 						</Routes>
 					</div>
 					<Footer />
