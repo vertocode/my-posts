@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import {ReactElement, useEffect} from 'react'
 import './UserDetails.scss'
 import UserPNG from '../../assets/images/user.png'
 import { useState } from 'react'
@@ -8,13 +8,19 @@ import { useUserUpdate } from '../../hooks/useUserUpdate'
 import LoadingButton from '@mui/lab/LoadingButton'
 
 const UserDetails = ({ user }): ReactElement => {
-	const [name, setName] = useState(user.displayName)
-	const [email, setEmail] = useState(user.email)
-	const [photoURL, setPhotoURL] = useState(user?.photoURL)
+	const [name, setName] = useState('')
+	const [email, setEmail] = useState('')
+	const [photoURL, setPhotoURL] = useState('')
 	const [isEditingName, setIsEditingName] = useState(false)
 	const [isEditingEmail, setIsEditingEmail] = useState(false)
 	const [isEditingPhotoURL, setIsEditingPhotoURL] = useState(false)
-	const { updateUser, updateEmailUser, loading, error } = useUserUpdate()
+	const { updateUser, updateEmailUser, loading, error, updateDBEmailUser,updateDBUser  } = useUserUpdate()
+
+	useEffect(() => {
+		setName(user.displayName)
+		setEmail(user.email)
+		setPhotoURL(user.photoURL)
+	}, [user])
 
 	const hasEmailChanged = () => {
 		return email !== user.email
@@ -31,10 +37,12 @@ const UserDetails = ({ user }): ReactElement => {
 
 		if (hasEmailChanged()) {
 			await updateEmailUser(email)
+			await updateDBEmailUser({ email }, user.uid)
 		}
 
 		if (photoURL !== user.photoURL || name !== user.displayName) {
-			await updateUser({ displayName: name, email, photoURL })
+			await updateUser({ displayName: name, photoURL })
+			await updateDBUser({ displayName: name, photoURL }, user.uid)
 		}
 	}
 
@@ -62,7 +70,7 @@ const UserDetails = ({ user }): ReactElement => {
 					)}
 				</div>
 				<div className="info">
-					<p><strong>User ID:</strong> {user.uid}</p>
+					<p><strong>User ID:</strong> {user?.uid}</p>
 					{isEditingName
 						? (
 							<p>
@@ -96,7 +104,7 @@ const UserDetails = ({ user }): ReactElement => {
 						: (
 							<p>
 								<strong>Email:</strong> {email}
-								<i className="fa fa-edit" onClick={ () => setIsEditingEmail(true) }></i>
+								{/*<i className="fa fa-edit" onClick={ () => setIsEditingEmail(true) }></i>*/}
 							</p>
 						)}
 				</div>

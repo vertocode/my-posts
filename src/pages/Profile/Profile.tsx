@@ -1,17 +1,50 @@
 import './Profile.scss'
-import { ReactElement } from 'react'
+import {ReactElement, useEffect, useState} from 'react'
 import UserDetails from '../../components/UserDetails/UserDetails'
-import { useAuthValue } from '../../hooks/useAuthValue'
 import PostList from '../../components/PostList/PostList.tsx'
+import { useParams } from 'react-router-dom'
+import { useUserCollection } from '../../hooks/useUserCollection'
+import Button from "@mui/material/Button";
 
 const Profile = (): ReactElement => {
-	const { user } = useAuthValue()
+	const { id: userId } = useParams()
+	const { getUserById, loading, error, user } = useUserCollection()
+
+	useEffect(() => {
+		const getUser = async () => {
+			if (userId) {
+				await getUserById(userId)
+			}
+		}
+
+		getUser()
+	}, [userId])
 
 	return (
 		<div className="Profile">
 			<h1>My Profile</h1>
-			<UserDetails user={ user }/>
-			<PostList userId={ user.uid }/>
+			{
+				loading && <p>Loading...</p>
+			}
+			{
+				error && <p className="error">{ error }</p>
+			}
+			{
+				!userId || (!loading && !user) && (
+					<>
+						<p className="error">User not found</p>
+						<Button variant="outlined" color="warning">Home</Button>
+					</>
+				)
+			}
+			{
+				user && (
+					<>
+						<UserDetails user={ user }/>
+						<PostList userId={ user.uid }/>
+					</>
+				)
+			}
 		</div>
 	)
 }

@@ -2,7 +2,7 @@ import './PostDetails.scss'
 import Chip from '@mui/material/Chip'
 import Button from '@mui/material/Button'
 import { useAuthValue } from '../../hooks/useAuthValue'
-import { useNavigate } from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { useDeleteDocument } from '../../hooks/useDeleteDocument'
 import ConfirmDeleteModal from '../Modal/ConfirmDeleteModal.tsx'
 import { useState } from 'react'
@@ -14,8 +14,8 @@ const PostComponent = ({ post }) => {
 	const navigate = useNavigate()
 	const deleteDocument = useDeleteDocument('posts', post.id)
 
-	const isCreator = post.uid === user?.uid
-	const isAdmin = user?.email === 'vertocode@gmail.com'
+	const isCreator = post?.uid === user?.uid
+	const isAdmin = user?.email === 'evertonvanoni1@gmail.com'
 	const canEditAndDelete = isCreator || isAdmin
 
 	const formatCreatedAt = () => {
@@ -27,7 +27,10 @@ const PostComponent = ({ post }) => {
 		<div className="PostDetails">
 			<header>
 				<p className="post-meta">
-					<span className="post-author">Created by: {createdBy}</span>
+					<span className="post-author">Created by: { post?.uid
+						? <Link to={ `/profile/${post?.uid}` }>{createdBy}</Link>
+						: {createdBy}
+					}</span>
 					<span className="post-date">Created at: {formatCreatedAt()}</span>
 				</p>
 

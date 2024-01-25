@@ -70,7 +70,7 @@ const PostList = ({ userId = null }): ReactElement => {
 					</div>
 				)}
 				{posts && posts.map((post, index) => (
-					<PostDetails key={ `post-${index}-${post.uid}` } post={ post } />
+					<PostDetails key={ `post-${index}-${post?.uid || '0'}` } post={ post } />
 				))}
 			</main>
 		</div>

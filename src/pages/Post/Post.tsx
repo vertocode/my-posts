@@ -19,7 +19,7 @@ const Post = (): ReactElement => {
 	const [background] = useState(post?.backgroundColor || 'white')
 
 	const isCreator = post?.createdBy === user?.displayName
-	const isAdmin = user?.email === 'vertocode@gmail.com'
+	const isAdmin = user?.email === 'evertonvanoni1@gmail.com'
 	const canEditAndDelete = isCreator || isAdmin
 
 	const date = new Date(post?.createdAt?.seconds * 1000) || null

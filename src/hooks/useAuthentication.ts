@@ -8,6 +8,7 @@ import {
 } from 'firebase/auth'
 
 import { useState, useEffect } from 'react'
+import { useUserCollection } from './useUserCollection.ts'
 
 export const useAuthentication = () => {
 	const [currentUser, setCurrentUser] = useState(null)
@@ -15,6 +16,7 @@ export const useAuthentication = () => {
 	const [message, setMessage] = useState(window.localStorage.getItem('message'))
 	const [loading, setLoading] = useState(false)
 	const [hasEmailSent] = useState(false)
+	const { createUser: addUserOnDB } = useUserCollection()
 
 	// deal with memory leaks
 	const [cancelled, setCancelled] = useState(false)
@@ -54,7 +56,12 @@ export const useAuthentication = () => {
 
 		try {
 			response = await createUserWithEmailAndPassword(auth, data.email, data.password)
-			console.log('response', response)
+			await addUserOnDB({
+				email: data.email,
+				displayName: data.displayName,
+				uid: response.user.uid,
+				photoUrl: ''
+			})
 
 			await updateProfile(response.user, {
 				displayName: data.displayName

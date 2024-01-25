@@ -7,8 +7,6 @@ export const useUpdateDocument = (docCollection) => {
 	const [loading, setLoading] = useState(null)
 
 	const updateDocument = async (data, id) => {
-		console.log('data', data)
-		console.log('id', id)
 		setLoading(true)
 
 		try {
