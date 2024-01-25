@@ -8,7 +8,7 @@ import Button from '@mui/material/Button'
 import LoadingButton from '@mui/lab/LoadingButton'
 import PostDetails from '../PostDetails/PostDetails.tsx'
 
-const PostList = ({ userId = null }): ReactElement => {
+const PostList = ({ userId = null, isLogged }): ReactElement => {
 	const [posts, setPosts] = useState([])
 	const navigate = useNavigate()
 	const location = useLocation()
@@ -33,7 +33,7 @@ const PostList = ({ userId = null }): ReactElement => {
 
 	return (
 		<div className="PostList">
-			<h1>{userId ? 'All your posts' : 'All posts'}</h1>
+			<h1>{isLogged ? 'All your posts' : 'All posts'}</h1>
 			<form onSubmit={ handleSubmit }>
 				<div>
 					<TextField

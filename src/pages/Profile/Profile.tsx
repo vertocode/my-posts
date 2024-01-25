@@ -5,10 +5,14 @@ import PostList from '../../components/PostList/PostList.tsx'
 import { useParams } from 'react-router-dom'
 import { useUserCollection } from '../../hooks/useUserCollection'
 import Button from "@mui/material/Button";
+import {useAuthValue} from "../../hooks/useAuthValue.ts";
 
 const Profile = (): ReactElement => {
 	const { id: userId } = useParams()
 	const { getUserById, loading, error, user } = useUserCollection()
+	const { user: userLogged } = useAuthValue()
+
+	const isLoggedProfile = user?.uid === userLogged?.uid
 
 	useEffect(() => {
 		const getUser = async () => {
@@ -22,7 +26,7 @@ const Profile = (): ReactElement => {
 
 	return (
 		<div className="Profile">
-			<h1>My Profile</h1>
+			<h1>{ isLoggedProfile ?  'My Profile' : `${user.displayName}'s Profile` }</h1>
 			{
 				loading && <p>Loading...</p>
 			}
@@ -41,7 +45,7 @@ const Profile = (): ReactElement => {
 				user && (
 					<>
 						<UserDetails user={ user } />
-						<PostList userId={ user.uid }/>
+						<PostList userId={ user.uid } isLogged={ isLoggedProfile }/>
 					</>
 				)
 			}
