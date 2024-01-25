@@ -65,7 +65,8 @@ const PostForm = ({ post, title, description, id }: PostFormProps): ReactElement
 			content,
 			tags,
 			uid: user.uid,
-			createdBy: user.displayName
+			createdBy: user.displayName,
+			createdUserImage: user?.photoURL || '',
 		}
 
 		if (post) {

@@ -2,7 +2,7 @@ import './PostDetails.scss'
 import Chip from '@mui/material/Chip'
 import Button from '@mui/material/Button'
 import { useAuthValue } from '../../hooks/useAuthValue'
-import {Link, useNavigate} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDeleteDocument } from '../../hooks/useDeleteDocument'
 import ConfirmDeleteModal from '../Modal/ConfirmDeleteModal.tsx'
 import { useState } from 'react'
@@ -28,8 +28,17 @@ const PostComponent = ({ post }) => {
 			<header>
 				<p className="post-meta">
 					<span className="post-author">Created by: { post?.uid
-						? <Link to={ `/profile/${post?.uid}` }>{createdBy}</Link>
-						: {createdBy}
+						? (
+							<>
+								<Link to={ `/profile/${post?.uid}` } style={{ display: 'flex', alignItems: 'center' }}>
+									{ post?.createdUserImage && <img style={{ borderRadius: '50%', width: '30px', margin: '0 5px', backgroundColor: '#282C34' }} src={ post.createdUserImage } alt={`${createdBy}-image`}/> }
+									{createdBy}
+								</Link>
+							</>
+						)
+						: (
+							{ createdBy }
+						)
 					}</span>
 					<span className="post-date">Created at: {formatCreatedAt()}</span>
 				</p>

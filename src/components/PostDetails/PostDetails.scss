@@ -17,6 +17,11 @@
     color: #aaa;
 
     .post-author {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 5px;
+      justify-content: flex-start;
       margin-right: 25px;
     }
   }
