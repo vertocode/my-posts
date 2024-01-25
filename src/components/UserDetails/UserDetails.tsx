@@ -6,6 +6,7 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import { useUserUpdate } from '../../hooks/useUserUpdate'
 import LoadingButton from '@mui/lab/LoadingButton'
+import {useAuthValue} from "../../hooks/useAuthValue.ts";
 
 const UserDetails = ({ user }): ReactElement => {
 	const [name, setName] = useState('')
@@ -15,6 +16,9 @@ const UserDetails = ({ user }): ReactElement => {
 	const [isEditingEmail, setIsEditingEmail] = useState(false)
 	const [isEditingPhotoURL, setIsEditingPhotoURL] = useState(false)
 	const { updateUser, updateEmailUser, loading, error, updateDBEmailUser,updateDBUser  } = useUserUpdate()
+	const { user: userLogged } = useAuthValue()
+
+	const isLoggedProfile = user?.uid === userLogged?.uid
 
 	useEffect(() => {
 		setName(user.displayName)
@@ -86,7 +90,7 @@ const UserDetails = ({ user }): ReactElement => {
 						: (
 							<p>
 								<strong>Name:</strong> {name}
-								<i className="fa fa-edit" onClick={ () => setIsEditingName(true) }></i>
+								{ isLoggedProfile && <i className="fa fa-edit" onClick={ () => setIsEditingName(true) }></i> }
 							</p>
 						)}
 					{isEditingEmail

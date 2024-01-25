@@ -40,7 +40,7 @@ const Profile = (): ReactElement => {
 			{
 				user && (
 					<>
-						<UserDetails user={ user }/>
+						<UserDetails user={ user } />
 						<PostList userId={ user.uid }/>
 					</>
 				)
