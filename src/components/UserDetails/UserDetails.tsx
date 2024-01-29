@@ -61,7 +61,7 @@ const UserDetails = ({ user }): ReactElement => {
 			<div className="user-info">
 				<div className="profile-pic">
 					<img src={photoURL || UserPNG} alt="User's profile picture" />
-					{!isEditingPhotoURL && <i className="fa fa-edit" onClick={ () => setIsEditingPhotoURL(true) }></i>}
+					{!isEditingPhotoURL && isLoggedProfile && <i className="fa fa-edit" onClick={ () => setIsEditingPhotoURL(true) }></i>}
 					{isEditingPhotoURL && (
 						<TextField
 							onChange={(e) => setPhotoURL(e.target.value)}
